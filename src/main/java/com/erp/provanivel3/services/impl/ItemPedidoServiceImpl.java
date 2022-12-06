@@ -4,20 +4,20 @@ import com.erp.provanivel3.domain.Catalogo;
 import com.erp.provanivel3.domain.DTO.PedidoDTO;
 import com.erp.provanivel3.domain.ItemPedido;
 import com.erp.provanivel3.domain.Pedido;
+import com.erp.provanivel3.domain.QCatalogo;
 import com.erp.provanivel3.domain.exception.CondicaoException;
 import com.erp.provanivel3.domain.exception.DescontoException;
 import com.erp.provanivel3.repositories.ItemPedidoRepository;
 import com.erp.provanivel3.repositories.PedidoRepository;
 import com.erp.provanivel3.services.ItemPedidoService;
 import com.erp.provanivel3.services.exceptions.DataIntegrityException;
+import com.erp.provanivel3.services.exceptions.IllegalArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +35,7 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
 
     @Autowired
     @Qualifier("catalogoServiceImpl")
-    private CatalogoServiceImpl produtoServicoService;
+    private CatalogoServiceImpl catalogoService;
 
 
     @Override
@@ -46,17 +46,17 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
 
     @Override
     public void deleteById(String id) {
-        Catalogo produtoServico = produtoServicoService.findById(id);
+        Catalogo catalogo = catalogoService.findById(id);
         try {
-            delete(produtoServico);
+            delete(catalogo);
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Não foi possível escluir o item");
         }
     }
 
     @Override
-    public void delete(Catalogo produtoServico) {
-        repository.deleteAll(produtoServico.getItens());
+    public void delete(Catalogo catalogo) {
+        repository.deleteAll(catalogo.getItens());
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
         int count = objIds.size();
         int reverse = 0;
 
-        if (objIds.size() == pedidoIds.size()) {
+        if (objIds.size() <= pedidoIds.size() && objIds.size() > 0) {
             while (count > 0) {
                 if (objIdsStr[count - 1].equals(pedidoIdsStr[reverse++])) {
                     for (ItemPedido ip : obj) {
@@ -112,6 +112,11 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
 
     @Override
     public void updateAdd(PedidoDTO objDTO) {
+        Catalogo catalogo = null;
+        for (ItemPedido c : objDTO.getItens()) {
+                catalogo = catalogoService.findById(c.getCatalogo().getId().toString());
+        }
+
         Pedido pedido = service.findById(objDTO.getId().toString());
         Set<ItemPedido> newObj = pedido.getItens();
         for (ItemPedido ip : objDTO.getItens()) {
@@ -130,7 +135,7 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
                 throw new CondicaoException("Não é possível incluir o produto desativado no pedido");
             }
             ip.setCatalogo(
-                    produtoServicoService.findById(
+                    catalogoService.findById(
                             ip.getCatalogo().getId().toString()
                     ));
 //            setDesconto valida o obj e pode gerar uma exception para anular o obj

@@ -3,6 +3,7 @@ package com.erp.provanivel3.resources.exception;
 import com.erp.provanivel3.domain.exception.CondicaoException;
 import com.erp.provanivel3.domain.exception.DescontoException;
 import com.erp.provanivel3.services.exceptions.DataIntegrityException;
+import com.erp.provanivel3.services.exceptions.IllegalArgumentException;
 import com.erp.provanivel3.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +62,18 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> descontoException(DescontoException e, HttpServletRequest request) {
 
 		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Tentativa ilegal", e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
+
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<StandardError> outOfCatalogException(IllegalArgumentException e, HttpServletRequest request) {
+
+		StandardError err = new StandardError(
+				System.currentTimeMillis(),
+				HttpStatus.BAD_REQUEST.value(),
+				"Tentativa ilegal",
+				e.getMessage(),
+				request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 

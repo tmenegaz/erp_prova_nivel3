@@ -107,7 +107,7 @@ atualizar item no pedido
 incluir itens no pedido
 
     ``{{localhost}}/pedidos/addItem/{id}`` - ``PUT``
-deletar item do pedido
+remover item do pedido
 
     ``{{localhost}}/pedidos/item/{id}`` - ``DELETE``
 deletar o pedido

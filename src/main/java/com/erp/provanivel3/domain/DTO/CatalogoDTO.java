@@ -31,6 +31,7 @@ public class CatalogoDTO implements Serializable {
 	private Integer tipo;
 	private Integer condicao;
 
+	@JsonIgnore
 	private Set<ItemPedido> itens = new HashSet<>();
 
 	public CatalogoDTO() {

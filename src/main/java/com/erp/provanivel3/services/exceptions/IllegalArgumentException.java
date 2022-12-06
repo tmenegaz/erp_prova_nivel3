@@ -1,14 +1,14 @@
 package com.erp.provanivel3.services.exceptions;
 
-public class DataIntegrityException extends RuntimeException {
+public class IllegalArgumentException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
-	
-	public DataIntegrityException(String msg) {
+
+	public IllegalArgumentException(String msg) {
 		super(msg);
 	}
-	
-	public DataIntegrityException(String msg, Throwable cause) {
+
+	public IllegalArgumentException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 

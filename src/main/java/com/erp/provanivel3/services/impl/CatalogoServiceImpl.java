@@ -1,11 +1,12 @@
 package com.erp.provanivel3.services.impl;
 
-import com.erp.provanivel3.domain.QCatalogo;
 import com.erp.provanivel3.domain.Catalogo;
 import com.erp.provanivel3.domain.DTO.CatalogoDTO;
+import com.erp.provanivel3.domain.QCatalogo;
 import com.erp.provanivel3.repositories.CatalogoRepository;
 import com.erp.provanivel3.services.CatalogoService;
 import com.erp.provanivel3.services.exceptions.DataIntegrityException;
+import com.erp.provanivel3.services.exceptions.IllegalArgumentException;
 import com.erp.provanivel3.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -41,14 +42,12 @@ public class CatalogoServiceImpl implements CatalogoService {
 
     @Override
     public Catalogo findById(String id) {
-        Optional<Catalogo> produto = repository.findOne(
-                QCatalogo.catalogo.id.eq(UUID.fromString(id))
-        );
+        Optional<Catalogo> produto = produto = repository.findOne(
+                    QCatalogo.catalogo.id.eq(UUID.fromString(id)));
         return produto.orElseThrow(
-                () -> new ObjectNotFoundException(
-                        "Produto não encontrado: Id: " + id + ", Tipo: " + Catalogo.class.getName()
-                )
-        );
+                () -> new IllegalArgumentException(
+                        "O item do catálogo não pode ser encontrado: Id: " + id + ", Tipo: " + Catalogo.class.getName()
+                ));
     }
 
     @Override
