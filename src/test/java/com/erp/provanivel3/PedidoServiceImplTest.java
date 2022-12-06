@@ -40,7 +40,6 @@ public class PedidoServiceImplTest {
         }
     }
 
-    @Autowired
     @InjectMocks
     PedidoServiceImpl service;
 

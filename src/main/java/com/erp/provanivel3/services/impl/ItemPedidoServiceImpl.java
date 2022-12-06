@@ -27,6 +27,7 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
     private ItemPedidoRepository repository;
 
     @Autowired
+    @Qualifier("pedidoServiceImpl")
     private PedidoServiceImpl service;
 
     @Autowired
