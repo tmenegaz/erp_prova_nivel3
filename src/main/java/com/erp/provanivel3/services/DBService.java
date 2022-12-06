@@ -6,9 +6,9 @@ import com.erp.provanivel3.domain.Pedido;
 import com.erp.provanivel3.domain.enums.CondicaoProduto;
 import com.erp.provanivel3.domain.enums.StatusPedido;
 import com.erp.provanivel3.domain.enums.TipoCatalogo;
-import com.erp.provanivel3.repository.CatalogoRepository;
-import com.erp.provanivel3.repository.ItemPedidoRepository;
-import com.erp.provanivel3.repository.PedidoRepository;
+import com.erp.provanivel3.repositories.CatalogoRepository;
+import com.erp.provanivel3.repositories.ItemPedidoRepository;
+import com.erp.provanivel3.repositories.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
