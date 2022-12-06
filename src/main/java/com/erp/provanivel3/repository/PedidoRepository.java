@@ -1,4 +1,4 @@
-package com.erp.provanivel3.repositories;
+package com.erp.provanivel3.repository;
 
 import com.erp.provanivel3.domain.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;

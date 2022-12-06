@@ -6,13 +6,13 @@ import com.erp.provanivel3.domain.Pedido;
 import com.erp.provanivel3.domain.QPedido;
 import com.erp.provanivel3.domain.exception.CondicaoException;
 import com.erp.provanivel3.domain.exception.DescontoException;
-import com.erp.provanivel3.repositories.ItemPedidoRepository;
-import com.erp.provanivel3.repositories.PedidoRepository;
-import com.erp.provanivel3.services.EntityService;
+import com.erp.provanivel3.repository.ItemPedidoRepository;
+import com.erp.provanivel3.repository.PedidoRepository;
 import com.erp.provanivel3.services.PedidoService;
 import com.erp.provanivel3.services.exceptions.DataIntegrityException;
 import com.erp.provanivel3.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,13 +25,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class PedidoServiceImpl implements PedidoService, EntityService {
+public class PedidoServiceImpl implements PedidoService {
 
     @Autowired
     private PedidoRepository pedidoRepository;
 
     @Autowired
-    private CatalogoServiceImpl produtoServicoService;
+    @Qualifier("catalogoServiceImpl")
+    private CatalogoServiceImpl catalogoService;
 
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
@@ -83,7 +84,7 @@ public class PedidoServiceImpl implements PedidoService, EntityService {
                 throw new CondicaoException("Não é possível incluir o produto desativado no pedido");
             }
             ip.setCatalogo(
-                    produtoServicoService.findById(
+                    catalogoService.findById(
                             ip.getCatalogo().getId().toString()
                     ));
 //            setDesconto valida o obj e pode gerar uma exception para anular o obj

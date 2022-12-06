@@ -6,12 +6,12 @@ import com.erp.provanivel3.domain.ItemPedido;
 import com.erp.provanivel3.domain.Pedido;
 import com.erp.provanivel3.domain.exception.CondicaoException;
 import com.erp.provanivel3.domain.exception.DescontoException;
-import com.erp.provanivel3.repositories.ItemPedidoRepository;
-import com.erp.provanivel3.repositories.PedidoRepository;
-import com.erp.provanivel3.services.EntityService;
+import com.erp.provanivel3.repository.ItemPedidoRepository;
+import com.erp.provanivel3.repository.PedidoRepository;
 import com.erp.provanivel3.services.ItemPedidoService;
 import com.erp.provanivel3.services.exceptions.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class ItemPedidoServiceImpl implements ItemPedidoService, EntityService {
+public class ItemPedidoServiceImpl implements ItemPedidoService {
 
     @Autowired
     private ItemPedidoRepository repository;
@@ -33,6 +33,7 @@ public class ItemPedidoServiceImpl implements ItemPedidoService, EntityService {
     private PedidoRepository pedidoRepository;
 
     @Autowired
+    @Qualifier("catalogoServiceImpl")
     private CatalogoServiceImpl produtoServicoService;
 
 

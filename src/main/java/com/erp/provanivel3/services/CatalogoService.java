@@ -3,11 +3,17 @@ package com.erp.provanivel3.services;
 import com.erp.provanivel3.domain.Catalogo;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface CatalogoService {
 
     Catalogo findById(String id);
 
     Catalogo save(Catalogo obj);
+
+     void deleteById(String id);
+
+    List<Catalogo> findAll();
 
     void update(Catalogo obj);
 

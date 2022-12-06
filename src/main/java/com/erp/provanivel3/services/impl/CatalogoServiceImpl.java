@@ -3,9 +3,8 @@ package com.erp.provanivel3.services.impl;
 import com.erp.provanivel3.domain.QCatalogo;
 import com.erp.provanivel3.domain.Catalogo;
 import com.erp.provanivel3.domain.DTO.CatalogoDTO;
-import com.erp.provanivel3.repositories.CatalogoRepository;
+import com.erp.provanivel3.repository.CatalogoRepository;
 import com.erp.provanivel3.services.CatalogoService;
-import com.erp.provanivel3.services.EntityService;
 import com.erp.provanivel3.services.exceptions.DataIntegrityException;
 import com.erp.provanivel3.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class CatalogoServiceImpl implements CatalogoService, EntityService {
+public class CatalogoServiceImpl implements CatalogoService {
 
     @Autowired
     private CatalogoRepository repository;

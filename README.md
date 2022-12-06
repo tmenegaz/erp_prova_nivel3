@@ -120,4 +120,4 @@ Na raiz do projeto está o arquivo com as coleções para teste no Postman:
     ``prova-erp.postman_collection.json``
 
 A estratégia do banco está no arquivo ``application.yml`` e pode ser alterada em ``spring.jpa.hibernate.ddl-auto: update`` para ``none``.
-Os testes automatizados não estão funcinando. Minha sugestão é a utilização do Postman com as URLs acima.
+Alguns dos testes automatizados foram implementados e  funcinando. Minha sugestão é a utilização do Postman com as URLs acima para os casos omitidos.

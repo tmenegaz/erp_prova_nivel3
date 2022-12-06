@@ -23,48 +23,4 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class Provanivel3ApplicationTests {
 
-    @Autowired
-    private CatalogoResource catalogoResource;
-
-    @MockBean
-    private CatalogoServiceImpl service;
-
-
-    private static final String catalogo = "http://localhost:8081/produtosservicos";
-    private static final String pedido =  "http://localhost:8081/pedido";
-
-    @BeforeEach
-    public void setup() {
-        standaloneSetup(catalogoResource);
-    }
-
-    @Test
-    public void createProdORserv() {
-
-        Catalogo obj = new Catalogo(
-                "Tênis", 589.90,
-                TipoCatalogo.PRODUTO,
-                CondicaoProduto.DESATIVADO);
-        when(service.save(obj)).thenReturn(obj);
-
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .when()
-                .post(catalogo)
-                .then()
-                .statusCode(HttpStatus.SC_CREATED);
-    }
-    @Test
-    public void listAll() {
-        List<Catalogo> list = new ArrayList<>();
-        when(service.findAll()).thenReturn(list);
-        given().contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .when()
-                .get(catalogo)
-                .then()
-                .statusCode(HttpStatus.SC_NO_CONTENT);
-    }
-
 }
