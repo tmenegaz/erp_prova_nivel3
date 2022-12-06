@@ -1,0 +1,441 @@
+{
+	"info": {
+		"_postman_id": "31a92a88-93d7-4b6d-adda-b842c6092b82",
+		"name": "prova-erp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16393487"
+	},
+	"item": [
+		{
+			"name": "produto/servico",
+			"item": [
+				{
+					"name": "ps - new",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Casaco\",\r\n    \"preco\": 459.90,\r\n    \"tipo\": \"PRODUTO\",\r\n    \"condicao\": \"DESATIVADO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/produtosservicos",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"produtosservicos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ps - list all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Casaco\",\r\n    \"preco\": 459.90,\r\n    \"tipo\": \"PRODUTO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/produtosservicos",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"produtosservicos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ps - list page",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/produtosservicos/list?nome=Tênis",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"produtosservicos",
+								"list"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Tênis"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ps - by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/produtosservicos/95163ae1-4fd5-49a3-ab97-b0532200f87a",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"produtosservicos",
+								"95163ae1-4fd5-49a3-ab97-b0532200f87a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ps - by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/produtosservicos/cf0dcb8a-f5bd-4935-aa0b-69c01d04aa79",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"produtosservicos",
+								"cf0dcb8a-f5bd-4935-aa0b-69c01d04aa79"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ps - update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Tênis\",\r\n    \"preco\": 589.9,\r\n    \"tipo\": \"PRODUTO\",\r\n    \"condicao\": \"ATIVADO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/produtosservicos/e751ee2d-ef29-4760-a7de-9e136b9e78f8",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"produtosservicos",
+								"e751ee2d-ef29-4760-a7de-9e136b9e78f8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pedido",
+			"item": [
+				{
+					"name": "pe - new",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"instante\": \"30/09/2017 13:32\",\r\n    \"status\": \"ABERTO\",\r\n    \"itens\": [\r\n        {\r\n            \"desconto\": 0.2,\r\n            \"quantidade\": 1,\r\n            \"preco\": 589.9,\r\n            \"catalogo\": {\r\n                \"id\": \"95163ae1-4fd5-49a3-ab97-b0532200f87a\",\r\n                \"nome\": \"Tênis\",\r\n                \"preco\": 589.9,\r\n                \"tipo\": \"PRODUTO\",\r\n                \"condicao\": \"ATIVADO\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/pedidos",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pe - list all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/pedidos",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pe - list page",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/pedidos/list?status=ABERTO",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"pedidos",
+								"list"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ABERTO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pe - by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/pedidos/cf0a5b14-899a-4a7b-859a-a46486f0a8f0",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"pedidos",
+								"cf0a5b14-899a-4a7b-859a-a46486f0a8f0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pe - update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"ABERTO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/pedidos/cf0a5b14-899a-4a7b-859a-a46486f0a8f0",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"pedidos",
+								"cf0a5b14-899a-4a7b-859a-a46486f0a8f0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pe - update Item",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"itens\": [\r\n        {\r\n            \"desconto\": 0.5,\r\n            \"quantidade\": 5,\r\n            \"preco\": 589.9,\r\n            \"catalogo\": {\r\n                \"id\": \"95163ae1-4fd5-49a3-ab97-b0532200f87a\",\r\n                \"nome\": \"Tênis\",\r\n                \"preco\": 589.9,\r\n                \"tipo\": \"PRODUTO\",\r\n                \"condicao\": \"ATIVADO\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/pedidos/item/cf0a5b14-899a-4a7b-859a-a46486f0a8f0",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"pedidos",
+								"item",
+								"cf0a5b14-899a-4a7b-859a-a46486f0a8f0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pe - addItem",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"794a34e9-ccd3-4bf2-8e14-71c25fd99556\",\r\n    \"instante\": \"30/09/2017 13:32\",\r\n    \"status\": \"ABERTO\",\r\n    \"itens\": [\r\n        {\r\n            \"desconto\": 0.5,\r\n            \"quantidade\": 1,\r\n            \"preco\": 589.9,\r\n            \"catalogo\": {\r\n                \"id\": \"e751ee2d-ef29-4760-a7de-9e136b9e78f8\",\r\n                \"nome\": \"Tênis\",\r\n                \"preco\": 589.9,\r\n                \"tipo\": \"PRODUTO\",\r\n                \"condicao\": \"ATIVADO\"\r\n            }\r\n        },\r\n        {\r\n            \"desconto\": 0.1,\r\n            \"quantidade\": 2,\r\n            \"preco\": 78.59,\r\n            \"catalogo\": {\r\n                \"id\": \"659fc693-f310-4bdb-a7d8-aba4497847ab\",\r\n                \"nome\": \"Camisa\",\r\n                \"preco\": 78.59,\r\n                \"tipo\": \"PRODUTO\",\r\n                \"condicao\": \"ATIVADO\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/pedidos/addItem",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"pedidos",
+								"addItem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pe - by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/pedidos/1c6605d1-84db-4a8e-a4ec-d476fd93fbe6",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"pedidos",
+								"1c6605d1-84db-4a8e-a4ec-d476fd93fbe6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pe - item by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/pedidos/item/e751ee2d-ef29-4760-a7de-9e136b9e78f8",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"pedidos",
+								"item",
+								"e751ee2d-ef29-4760-a7de-9e136b9e78f8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
