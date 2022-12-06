@@ -67,6 +67,12 @@ public class CatalogoServiceImplTest {
         Assertions.assertEquals(obj, prod1);
     }
 
+    @Test
+    public void create() {
+        Catalogo obj = service.save(prod2);
+        Assertions.assertEquals(obj, prod2);
+    }
+
     @Before
     public void setup() {
 
@@ -93,8 +99,11 @@ public class CatalogoServiceImplTest {
         repository.saveAll(list);
 
         Mockito.when(repository.findAll()).thenReturn(list);
+
         Mockito.when(repository.findOne(
                 QCatalogo.catalogo.id.eq(prod1.getId())
                 )).thenReturn(Optional.of(prod1));
+
+        Mockito.when(repository.save(prod2)).thenReturn(prod2);
     }
 }
