@@ -1,6 +1,6 @@
 package com.erp.provanivel3.configuration;
 
-import com.erp.provanivel3.services.impl.DBService;
+import com.erp.provanivel3.services.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

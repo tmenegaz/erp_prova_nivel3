@@ -3,7 +3,7 @@ package com.erp.provanivel3.services.impl;
 import com.erp.provanivel3.domain.QCatalogo;
 import com.erp.provanivel3.domain.Catalogo;
 import com.erp.provanivel3.domain.DTO.CatalogoDTO;
-import com.erp.provanivel3.repository.CatalogoRepository;
+import com.erp.provanivel3.repositories.CatalogoRepository;
 import com.erp.provanivel3.services.CatalogoService;
 import com.erp.provanivel3.services.exceptions.DataIntegrityException;
 import com.erp.provanivel3.services.exceptions.ObjectNotFoundException;

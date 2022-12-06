@@ -1,4 +1,4 @@
-package com.erp.provanivel3.services.impl;
+package com.erp.provanivel3.services;
 
 import com.erp.provanivel3.domain.Catalogo;
 import com.erp.provanivel3.domain.ItemPedido;

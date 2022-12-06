@@ -4,7 +4,7 @@ import com.erp.provanivel3.domain.Catalogo;
 import com.erp.provanivel3.domain.QCatalogo;
 import com.erp.provanivel3.domain.enums.CondicaoProduto;
 import com.erp.provanivel3.domain.enums.TipoCatalogo;
-import com.erp.provanivel3.repository.CatalogoRepository;
+import com.erp.provanivel3.repositories.CatalogoRepository;
 import com.erp.provanivel3.services.impl.CatalogoServiceImpl;
 import org.junit.Before;
 import org.junit.Test;

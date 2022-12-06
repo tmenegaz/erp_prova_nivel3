@@ -46,6 +46,12 @@ public class Pedido implements Serializable {
 		this.status = (status == null) ? null : status.getCod();
 	}
 
+	public Pedido(UUID id, Date instante, StatusPedido status) {
+		this.id = id;
+		this.instante = instante;
+		this.status = (status == null) ? null : status.getCod();
+	}
+
 	public Pedido(StatusPedido status) {
 		this.status = (status==null) ? null : status.getCod();
 	}
