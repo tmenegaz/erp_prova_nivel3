@@ -124,4 +124,4 @@ Alguns dos testes automatizados foram implementados e funcinam. Minha sugestão 
 
 O ``CatalogoServiceImplTest.java`` testa apenas o modelo ``Catalogo`` para o ``CRUD`` do serviço.
 
-O arquivo ``PedidoServiceImplTest.java`` testa suas próprias funcinalidades, com alterar o Status e incluir ou remover itens.
+O arquivo ``PedidoServiceImplTest.java`` testa suas próprias funcinalidades, com alterar o Status e incluir ou remover itens. Contudo não funcina. Tive dificuldade com as @InjectMocks. 

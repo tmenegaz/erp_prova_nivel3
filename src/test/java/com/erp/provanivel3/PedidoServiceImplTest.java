@@ -1,18 +1,17 @@
 package com.erp.provanivel3;
 
-import com.erp.provanivel3.domain.Catalogo;
-import com.erp.provanivel3.domain.ItemPedido;
 import com.erp.provanivel3.domain.Pedido;
 import com.erp.provanivel3.domain.QPedido;
-import com.erp.provanivel3.domain.enums.CondicaoProduto;
 import com.erp.provanivel3.domain.enums.StatusPedido;
-import com.erp.provanivel3.domain.enums.TipoCatalogo;
+import com.erp.provanivel3.repositories.CatalogoRepository;
 import com.erp.provanivel3.repositories.PedidoRepository;
+import com.erp.provanivel3.services.impl.CatalogoServiceImpl;
 import com.erp.provanivel3.services.impl.PedidoServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -42,10 +41,17 @@ public class PedidoServiceImplTest {
     }
 
     @Autowired
+    @InjectMocks
     PedidoServiceImpl service;
 
     @MockBean
     PedidoRepository repository;
+
+    @MockBean
+    CatalogoRepository catalogoRepository;
+
+    @Autowired
+    CatalogoServiceImpl catalogoService;
 
     Pedido ped1;
     Pedido ped2;
@@ -103,7 +109,7 @@ public class PedidoServiceImplTest {
     @Test
     public void deleteById() {
         when(repository.findOne(
-                QPedido.pedido.id.eq(serv1.getId())
+                QPedido.pedido.id.eq(ped1.getId())
         ))
                 .thenReturn(Optional.of(ped1))
                 .thenReturn(null);
