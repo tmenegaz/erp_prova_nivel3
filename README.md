@@ -89,10 +89,10 @@ delete
 criar o pedido
 
     ``{{localhost}}/pedidos`` - ``POST``
-listar tudo do pedido
+listar todos os pedido
 
     ``{{localhost}}/pedidos`` - ``GET``
-listar por ID no pedido
+listar por ID do pedido
 
     ``{{localhost}}/pedidos/{id}`` - ``GET``
 filtro no pedido
