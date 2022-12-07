@@ -16,15 +16,15 @@ import java.util.Objects;
 @Entity
 @Table(name = "itens_pedidos")
 public class ItemPedido implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@JsonIgnore
+    @JsonIgnore
     @EmbeddedId
-	private ItemPedidoPK id = new ItemPedidoPK();
+    private ItemPedidoPK id = new ItemPedidoPK();
 
-	private Double desconto;
-	private Integer quantidade;
-	private Double preco;
+    private Double desconto;
+    private Integer quantidade;
+    private Double preco;
 
     public ItemPedido() {
     }
@@ -38,36 +38,50 @@ public class ItemPedido implements Serializable {
     }
 
     public Double getSubTotalDesconto(ItemPedido ip) {
-		Double precoTotalProdutoComDesconto = 0.0;
-		Double precoTotalServico = 0.0;
-		Double precoTotalProduto = 0.0;
+        Double precoTotalProdutoComDesconto = 0.0;
+        Double precoTotalServico = 0.0;
+        Double precoTotalProduto = 0.0;
 
+        precoTotalProdutoComDesconto = Arrays.asList(ip).stream()
+                .filter(g -> g.getPedido() != null)
+                .filter(a -> a.getPedido().getStatus().equals(StatusPedido.ABERTO))
+                .filter(f -> f.getCatalogo().getTipo().equals(TipoCatalogo.PRODUTO))
+                .map(ps -> (ps.getCatalogo().getPreco() * ps.getQuantidade()) * (1 - ps.getDesconto()))
+                .reduce((a, b) -> a + b)
+                .orElse(0.0);
+        if (precoTotalProdutoComDesconto != 0.0) {
+            for (ItemPedido iPreco: ip.getPedido().getItens()) {
+                iPreco.setPreco(precoTotalProdutoComDesconto);
+            }
+        }
 
-		precoTotalProdutoComDesconto = Arrays.asList(ip).stream()
-				.filter(g -> g.getPedido() != null)
-				.filter(a -> a.getPedido().getStatus().equals(StatusPedido.ABERTO))
-				.filter(f -> f.getCatalogo().getTipo().equals(TipoCatalogo.PRODUTO))
-				.map(ps -> ps.getCatalogo().getPreco() * (1 - ps.getDesconto()) * ps.getQuantidade())
-				.reduce((a, b) -> a + b)
-				.orElse(0.0);
+        precoTotalServico = Arrays.asList(ip).stream()
+                .filter(q -> q.getCatalogo() != null)
+                .filter(s -> s.getCatalogo().getTipo().equals(TipoCatalogo.SERVICO))
+                .map(s -> s.getPreco() * s.getQuantidade())
+                .reduce((a, b) -> a + b)
+                .orElse(0.0);
+        if (precoTotalServico != 0.0) {
+            for (ItemPedido iPreco: ip.getPedido().getItens()) {
+                iPreco.setPreco(precoTotalProdutoComDesconto);
+            }
+        }
 
-		precoTotalServico = Arrays.asList(ip).stream()
-				.filter(q -> q.getCatalogo() != null)
-				.filter(s -> s.getCatalogo().getTipo().equals(TipoCatalogo.SERVICO))
-				.map(s -> s.getPreco() * s.getQuantidade())
-				.reduce((a, b) -> a + b)
-				.orElse(0.0);
+        precoTotalProduto = Arrays.asList(ip).stream()
+                .filter(j -> j.getPedido() != null)
+                .filter(a -> a.getPedido().getStatus().equals(StatusPedido.FECHADO))
+                .filter(s -> s.getCatalogo().getTipo().equals(TipoCatalogo.PRODUTO))
+                .map(s -> s.getPreco() * s.getQuantidade())
+                .reduce((a, b) -> a + b)
+                .orElse(0.0);
+        if (precoTotalProduto != 0.0) {
+            for (ItemPedido iPreco: ip.getPedido().getItens()) {
+                iPreco.setPreco(precoTotalProdutoComDesconto);
+            }
+        }
 
-		precoTotalProduto = Arrays.asList(ip).stream()
-				.filter(j -> j.getPedido() != null)
-				.filter(a -> a.getPedido().getStatus().equals(StatusPedido.FECHADO))
-				.filter(s -> s.getCatalogo().getTipo().equals(TipoCatalogo.PRODUTO))
-				.map(s -> s.getPreco() * s.getQuantidade())
-				.reduce((a, b) -> a + b)
-				.orElse(0.0);
-
-		return (precoTotalProdutoComDesconto + precoTotalServico + precoTotalProduto);
-	}
+        return (precoTotalProdutoComDesconto + precoTotalServico + precoTotalProduto);
+    }
 
     @JsonIgnore
     public Pedido getPedido() {
@@ -97,17 +111,17 @@ public class ItemPedido implements Serializable {
     }
 
     public void setDesconto(Double desconto, Pedido pedido, Catalogo catalogo) {
-		try {
-			ValidationException.ItemPedido(desconto, pedido, catalogo);
-			this.desconto = desconto;
-		} catch (DescontoException e) {
-			e.getMessage();
-		}
-	}
+        try {
+            ValidationException.ItemPedido(desconto, pedido, catalogo);
+            this.desconto = desconto;
+        } catch (DescontoException e) {
+            e.getMessage();
+        }
+    }
 
-	public void setDesconto(Double desconto) {
-		this.desconto = desconto;
-	}
+    public void setDesconto(Double desconto) {
+        this.desconto = desconto;
+    }
 
     public Integer getQuantidade() {
         return quantidade;

@@ -104,7 +104,7 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
         for (ItemPedido ip : newObj) {
             ip.setDesconto(obj.getDesconto());
             ip.setQuantidade(obj.getQuantidade());
-            ip.setPreco(obj.getPreco());
+            ip.setPreco(obj.getSubTotalDesconto(ip));
             ip.setCatalogo(obj.getCatalogo());
             repository.save(ip);
         }
@@ -140,7 +140,7 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
                     ));
 //            setDesconto valida o obj e pode gerar uma exception para anular o obj
             ip.setDesconto(ip.getDesconto(), obj, ip.getCatalogo());
-            ip.setPreco(ip.getCatalogo().getPreco());
+            ip.setPreco(ip.getPreco());
             if (obj.getItens().size() == 0) {
                 obj = null;
                 throw new DescontoException("Não é possível oferecer desconto. O pedido está fechado ou não é produto");
