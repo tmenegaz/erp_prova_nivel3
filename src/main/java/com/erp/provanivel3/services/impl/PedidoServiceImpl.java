@@ -46,7 +46,7 @@ public class PedidoServiceImpl implements PedidoService {
     public Page<Pedido> search(String status, Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
 		if (!status.isEmpty()) {
-//            return pedidoRepository.findAll(QPedido.pedido.status.like("%"+status+"%"),pageRequest);
+            return pedidoRepository.findAll(QPedido.pedido.status.eq(Integer.valueOf(status)),pageRequest);
         }
 		return pedidoRepository.findAll(pageRequest);
 	}
