@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
@@ -22,8 +24,12 @@ public class ItemPedido implements Serializable {
     @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
 
+    @Min(0)
+    @Max(1)
     private Double desconto;
+    @Min(value = 1)
     private Integer quantidade;
+    @Min(1)
     private Double preco;
 
     public ItemPedido() {

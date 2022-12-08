@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.*;
 
@@ -28,7 +30,11 @@ public class Catalogo implements Serializable {
 	)
 	@Column(name = "id", updatable = false, nullable = false)
 	private UUID id;
+
+	@NotBlank
 	private String nome;
+
+	@Min(0)
 	private Double preco;
 	private Integer tipo;
 	private Integer condicao;

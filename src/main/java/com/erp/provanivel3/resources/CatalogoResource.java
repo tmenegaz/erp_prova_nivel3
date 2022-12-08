@@ -8,6 +8,7 @@ import com.erp.provanivel3.resources.utils.URL;
 import com.erp.provanivel3.services.impl.CatalogoServiceImpl;
 import com.erp.provanivel3.services.impl.ItemPedidoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +24,14 @@ import java.util.stream.Collectors;
 @RequestMapping( "/produtosservicos")
 public class CatalogoResource {
 
+    @Qualifier("catalogoServiceImpl")
     @Autowired
     private CatalogoServiceImpl service;
 
     @Autowired
     private ItemPedidoServiceImpl itemPedidoService;
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<Catalogo> findById(
             @PathVariable(value = "id") String id
     ) {
@@ -69,7 +71,7 @@ public class CatalogoResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(
             @PathVariable(value = "id") String id
     ) {
@@ -77,7 +79,7 @@ public class CatalogoResource {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<Void> update(
             @PathVariable(value = "id") String id,
             @RequestBody() CatalogoDTO objDTO

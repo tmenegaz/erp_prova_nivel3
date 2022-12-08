@@ -88,6 +88,7 @@ public class PedidoServiceImpl implements PedidoService {
                             ip.getCatalogo().getId().toString()
                     ));
 //            setDesconto valida o obj e pode gerar uma exception para anular o obj
+            ip.setQuantidade(ip.getQuantidade());
             ip.setDesconto(ip.getDesconto(), obj, ip.getCatalogo());
             ip.setPreco(ip.getPreco());
             if (obj.getItens().size() == 0) {

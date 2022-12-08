@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Casaco\",\r\n    \"preco\": 459.90,\r\n    \"tipo\": \"PRODUTO\",\r\n    \"condicao\": \"DESATIVADO\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Mesa Mogno\",\r\n    \"preco\": 1459.90,\r\n    \"tipo\": \"PRODUTO\",\r\n    \"condicao\": \"DESATIVADO\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -82,7 +82,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/produtosservicos/list?nome=Tênis",
+							"raw": "{{localhost}}/produtosservicos/list?nome=Camisa&condicao=ATIVADO",
 							"host": [
 								"{{localhost}}"
 							],
@@ -93,7 +93,11 @@
 							"query": [
 								{
 									"key": "nome",
-									"value": "Tênis"
+									"value": "Camisa"
+								},
+								{
+									"key": "condicao",
+									"value": "ATIVADO"
 								}
 							]
 						}
@@ -136,13 +140,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{localhost}}/produtosservicos/cf0dcb8a-f5bd-4935-aa0b-69c01d04aa79",
+							"raw": "{{localhost}}/produtosservicos/16903b31-79ef-475b-90e8-17e5912e0491",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"produtosservicos",
-								"cf0dcb8a-f5bd-4935-aa0b-69c01d04aa79"
+								"16903b31-79ef-475b-90e8-17e5912e0491"
 							]
 						}
 					},
@@ -155,7 +159,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Tênis\",\r\n    \"preco\": 589.9,\r\n    \"tipo\": \"PRODUTO\",\r\n    \"condicao\": \"ATIVADO\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Tênis\",\r\n    \"preco\": 1000.0,\r\n    \"tipo\": \"PRODUTO\",\r\n    \"condicao\": \"ATIVADO\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -163,13 +167,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/produtosservicos/e751ee2d-ef29-4760-a7de-9e136b9e78f8",
+							"raw": "{{localhost}}/produtosservicos/95163ae1-4fd5-49a3-ab97-b0532200f87a",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"produtosservicos",
-								"e751ee2d-ef29-4760-a7de-9e136b9e78f8"
+								"95163ae1-4fd5-49a3-ab97-b0532200f87a"
 							]
 						}
 					},
@@ -187,7 +191,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"instante\": \"30/09/2017 13:32\",\r\n    \"status\": \"ABERTO\",\r\n    \"itens\": [\r\n        {\r\n            \"desconto\": 0.2,\r\n            \"quantidade\": 1,\r\n            \"preco\": 589.9,\r\n            \"catalogo\": {\r\n                \"id\": \"95163ae1-4fd5-49a3-ab97-b0532200f87a\",\r\n                \"nome\": \"Tênis\",\r\n                \"preco\": 589.9,\r\n                \"tipo\": \"PRODUTO\",\r\n                \"condicao\": \"ATIVADO\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"instante\": \"30/09/2017 13:32\",\r\n    \"status\": \"ABERTO\",\r\n    \"itens\": [\r\n        {\r\n            \"desconto\": 0.1,\r\n            \"quantidade\": 1,\r\n            \"preco\": 900.0,\r\n            \"catalogo\": {\r\n                \"id\": \"95163ae1-4fd5-49a3-ab97-b0532200f87a\",\r\n                \"nome\": \"Tênis\",\r\n                \"preco\": 1000.0,\r\n                \"tipo\": \"PRODUTO\",\r\n                \"condicao\": \"ATIVADO\"\r\n            }\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -284,13 +288,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/pedidos/cf0a5b14-899a-4a7b-859a-a46486f0a8f0",
+							"raw": "{{localhost}}/pedidos/27ebfb8c-a27b-49ab-b45e-71dab5a3a0c2",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"pedidos",
-								"cf0a5b14-899a-4a7b-859a-a46486f0a8f0"
+								"27ebfb8c-a27b-49ab-b45e-71dab5a3a0c2"
 							]
 						}
 					},
@@ -311,13 +315,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/pedidos/cf0a5b14-899a-4a7b-859a-a46486f0a8f0",
+							"raw": "{{localhost}}/pedidos/fb71a72e-668d-40c4-8eaa-9e5b3496d4ae",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"pedidos",
-								"cf0a5b14-899a-4a7b-859a-a46486f0a8f0"
+								"fb71a72e-668d-40c4-8eaa-9e5b3496d4ae"
 							]
 						}
 					},
@@ -330,7 +334,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"itens\": [\r\n        {\r\n            \"desconto\": 0.5,\r\n            \"quantidade\": 5,\r\n            \"preco\": 589.9,\r\n            \"catalogo\": {\r\n                \"id\": \"95163ae1-4fd5-49a3-ab97-b0532200f87a\",\r\n                \"nome\": \"Tênis\",\r\n                \"preco\": 589.9,\r\n                \"tipo\": \"PRODUTO\",\r\n                \"condicao\": \"ATIVADO\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"itens\": [\r\n        {\r\n            \"desconto\": 0.05,\r\n            \"quantidade\": 1,\r\n            \"preco\": 900.0,\r\n            \"catalogo\": {\r\n                \"id\": \"95163ae1-4fd5-49a3-ab97-b0532200f87a\",\r\n                \"nome\": \"Tênis\",\r\n                \"preco\": 1000.0,\r\n                \"tipo\": \"PRODUTO\",\r\n                \"condicao\": \"ATIVADO\"\r\n            }\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -338,14 +342,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/pedidos/item/cf0a5b14-899a-4a7b-859a-a46486f0a8f0",
+							"raw": "{{localhost}}/pedidos/item/27ebfb8c-a27b-49ab-b45e-71dab5a3a0c2",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"pedidos",
 								"item",
-								"cf0a5b14-899a-4a7b-859a-a46486f0a8f0"
+								"27ebfb8c-a27b-49ab-b45e-71dab5a3a0c2"
 							]
 						}
 					},
@@ -358,7 +362,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"794a34e9-ccd3-4bf2-8e14-71c25fd99556\",\r\n    \"instante\": \"30/09/2017 13:32\",\r\n    \"status\": \"ABERTO\",\r\n    \"itens\": [\r\n        {\r\n            \"desconto\": 0.5,\r\n            \"quantidade\": 1,\r\n            \"preco\": 589.9,\r\n            \"catalogo\": {\r\n                \"id\": \"e751ee2d-ef29-4760-a7de-9e136b9e78f8\",\r\n                \"nome\": \"Tênis\",\r\n                \"preco\": 589.9,\r\n                \"tipo\": \"PRODUTO\",\r\n                \"condicao\": \"ATIVADO\"\r\n            }\r\n        },\r\n        {\r\n            \"desconto\": 0.1,\r\n            \"quantidade\": 2,\r\n            \"preco\": 78.59,\r\n            \"catalogo\": {\r\n                \"id\": \"659fc693-f310-4bdb-a7d8-aba4497847ab\",\r\n                \"nome\": \"Camisa\",\r\n                \"preco\": 78.59,\r\n                \"tipo\": \"PRODUTO\",\r\n                \"condicao\": \"ATIVADO\"\r\n            }\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"id\": \"fb71a72e-668d-40c4-8eaa-9e5b3496d4ae\",\r\n    \"instante\": \"30/09/2017 13:32\",\r\n    \"status\": \"ABERTO\",\r\n    \"itens\": [\r\n        {\r\n            \"desconto\": 0.5,\r\n            \"quantidade\": 1,\r\n            \"preco\": 459.9,\r\n            \"catalogo\": {\r\n                \"id\": \"d0b7cedf-cb74-4ea0-b1be-e0851b29077e\",\r\n                \"nome\": \"Casaco\",\r\n                \"preco\": 459.9,\r\n                \"tipo\": \"PRODUTO\",\r\n                \"condicao\": \"ATIVADO\"\r\n            }\r\n        },\r\n        {\r\n            \"desconto\": 0.1,\r\n            \"quantidade\": 2,\r\n            \"preco\": 78.59,\r\n            \"catalogo\": {\r\n                \"id\": \"147174a5-c68f-4a76-894e-e360e94194ad\",\r\n                \"nome\": \"Camisa\",\r\n                \"preco\": 78.59,\r\n                \"tipo\": \"PRODUTO\",\r\n                \"condicao\": \"ATIVADO\"\r\n            }\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -384,13 +388,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{localhost}}/pedidos/1c6605d1-84db-4a8e-a4ec-d476fd93fbe6",
+							"raw": "{{localhost}}/pedidos/77ac1b32-8a44-4844-8fda-ad75593efc2e",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"pedidos",
-								"1c6605d1-84db-4a8e-a4ec-d476fd93fbe6"
+								"77ac1b32-8a44-4844-8fda-ad75593efc2e"
 							]
 						}
 					},
@@ -402,14 +406,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{localhost}}/pedidos/item/e751ee2d-ef29-4760-a7de-9e136b9e78f8",
+							"raw": "{{localhost}}/pedidos/item/1c10dfbb-29fb-4df7-8663-c6d763a97e90",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"pedidos",
 								"item",
-								"e751ee2d-ef29-4760-a7de-9e136b9e78f8"
+								"1c10dfbb-29fb-4df7-8663-c6d763a97e90"
 							]
 						}
 					},

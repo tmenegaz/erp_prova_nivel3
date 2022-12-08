@@ -4,20 +4,20 @@ import com.erp.provanivel3.domain.Catalogo;
 import com.erp.provanivel3.domain.DTO.PedidoDTO;
 import com.erp.provanivel3.domain.ItemPedido;
 import com.erp.provanivel3.domain.Pedido;
-import com.erp.provanivel3.domain.QCatalogo;
 import com.erp.provanivel3.domain.exception.CondicaoException;
 import com.erp.provanivel3.domain.exception.DescontoException;
 import com.erp.provanivel3.repositories.ItemPedidoRepository;
 import com.erp.provanivel3.repositories.PedidoRepository;
 import com.erp.provanivel3.services.ItemPedidoService;
 import com.erp.provanivel3.services.exceptions.DataIntegrityException;
-import com.erp.provanivel3.services.exceptions.IllegalArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service

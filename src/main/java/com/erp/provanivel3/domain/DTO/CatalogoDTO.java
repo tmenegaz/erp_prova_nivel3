@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.*;
@@ -26,6 +27,7 @@ public class CatalogoDTO implements Serializable {
 	private String nome;
 
 	@Digits(integer=6, fraction=2, message = "Preenchimento obrigatório")
+	@Min(0)
 	private Double preco;
 
 	private Integer tipo;

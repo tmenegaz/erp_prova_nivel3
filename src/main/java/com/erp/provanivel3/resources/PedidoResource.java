@@ -7,11 +7,13 @@ import com.erp.provanivel3.domain.enums.StatusPedido;
 import com.erp.provanivel3.services.impl.ItemPedidoServiceImpl;
 import com.erp.provanivel3.services.impl.PedidoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
@@ -21,13 +23,14 @@ import java.util.stream.Collectors;
 @RequestMapping( "/pedidos")
 public class PedidoResource {
 
+    @Qualifier("pedidoServiceImpl")
     @Autowired
     private PedidoServiceImpl pedidoService;
 
     @Autowired
     private ItemPedidoServiceImpl itemPedidoService;
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<Pedido> findById(
             @PathVariable(value = "id") String id
     ) {
@@ -58,7 +61,7 @@ public class PedidoResource {
         return ResponseEntity.ok().body(list);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(
             @PathVariable(value = "id") String id
     ) {
@@ -66,7 +69,7 @@ public class PedidoResource {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(value = "/item/{id}")
+    @DeleteMapping(path = "/item/{id}")
     public ResponseEntity<Void> deleteItem(
             @PathVariable(value = "id") String id
     ) {
@@ -74,7 +77,7 @@ public class PedidoResource {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(value = "/{id}")
+    @PatchMapping(path = "/{id}")
     public ResponseEntity<Void> update(
             @PathVariable(value = "id") String id,
             @RequestBody() PedidoDTO objDTO
@@ -98,6 +101,7 @@ public class PedidoResource {
 
     @PutMapping(value = "/addItem")
     public ResponseEntity<Void> addItem(
+            @Valid
             @RequestBody() Pedido obj
     ) {
         PedidoDTO objDTO = new PedidoDTO(obj.getItens());
@@ -113,6 +117,7 @@ public class PedidoResource {
 
     @PostMapping
     public ResponseEntity<Void> save(
+            @Valid
             @RequestBody() Pedido obj
     ) {
         obj = pedidoService.save(obj);
