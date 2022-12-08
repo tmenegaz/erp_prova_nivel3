@@ -87,8 +87,17 @@ public class PedidoServiceImpl implements PedidoService {
                     catalogoService.findById(
                             ip.getCatalogo().getId().toString()
                     ));
-//            setDesconto valida o obj e pode gerar uma exception para anular o obj
+            if (ip.getQuantidade() < 1) {
+                obj = null;
+                throw new DataIntegrityException("A quantidade mínima é 1");
+            }
             ip.setQuantidade(ip.getQuantidade());
+
+            if (ip.getDesconto() < 0 || ip.getDesconto() > 1) {
+                obj = null;
+                throw new DataIntegrityException("O desconto mínima é 0 e o máximo é 1");
+            }
+//            setDesconto valida o obj e pode gerar uma exception para anular o obj
             ip.setDesconto(ip.getDesconto(), obj, ip.getCatalogo());
             ip.setPreco(ip.getPreco());
             if (obj.getItens().size() == 0) {
