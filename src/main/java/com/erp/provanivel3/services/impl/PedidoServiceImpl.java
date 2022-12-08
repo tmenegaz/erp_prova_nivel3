@@ -44,12 +44,16 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public Page<Pedido> search(String status, Integer page, Integer linesPerPage, String orderBy, String direction) {
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-		if (!status.isEmpty()) {
+        PageRequest pageRequest = PageRequest.of(
+                page,
+                linesPerPage = linesPerPage < 5 ? linesPerPage = 5 : linesPerPage > 20 ? linesPerPage = 20 : linesPerPage,
+                Sort.Direction.valueOf(direction),
+                orderBy);
+        if (!status.isEmpty()) {
             return pedidoRepository.findAll(QPedido.pedido.status.eq(Integer.valueOf(status)),pageRequest);
         }
-		return pedidoRepository.findAll(pageRequest);
-	}
+        return pedidoRepository.findAll(pageRequest);
+    }
 
     @Override
     public void deleteById(String id) {

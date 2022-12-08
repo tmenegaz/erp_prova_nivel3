@@ -70,7 +70,11 @@ public class CatalogoServiceImpl implements CatalogoService {
     }
 
     public Page<Catalogo> search(String nome, String tipo, String condicao, Integer page, Integer linesPerPage, String orderBy, String direction) {
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        PageRequest pageRequest = PageRequest.of(
+                page,
+                linesPerPage = linesPerPage < 5 ? linesPerPage = 5 : linesPerPage > 20 ? linesPerPage = 20 : linesPerPage,
+                Sort.Direction.valueOf(direction),
+                orderBy);
         if (!condicao.isEmpty() && !nome.isEmpty()) {
             return repository.findAll(QCatalogo.catalogo.nome.like("%"+nome+"%")
                     .and(QCatalogo.catalogo.condicao.eq(Integer.valueOf(condicao))),pageRequest);
