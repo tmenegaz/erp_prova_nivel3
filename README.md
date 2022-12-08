@@ -100,7 +100,7 @@ filtro no pedido
     ``{{localhost}}/pedidos/list`` - ``GET``
 atualizar no pedido
 
-    ``{{localhost}}/pedidos/{id}`` - ``PUT``
+    ``{{localhost}}/pedidos/{id}`` - ``PATCH``
 atualizar item no pedido
 
     ``{{localhost}}/pedidos/item/{id}`` - ``PUT``
