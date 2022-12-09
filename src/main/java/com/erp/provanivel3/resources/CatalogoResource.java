@@ -24,12 +24,11 @@ import java.util.stream.Collectors;
 @RequestMapping( "/produtosservicos")
 public class CatalogoResource {
 
-    @Qualifier("catalogoServiceImpl")
-    @Autowired
     private CatalogoServiceImpl service;
 
-    @Autowired
-    private ItemPedidoServiceImpl itemPedidoService;
+    public CatalogoResource(CatalogoServiceImpl service) {
+        this.service = service;
+    }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Catalogo> findById(

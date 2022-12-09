@@ -11,8 +11,6 @@ import com.erp.provanivel3.repositories.PedidoRepository;
 import com.erp.provanivel3.services.PedidoService;
 import com.erp.provanivel3.services.exceptions.DataIntegrityException;
 import com.erp.provanivel3.services.exceptions.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,15 +25,19 @@ import java.util.UUID;
 @Service
 public class PedidoServiceImpl implements PedidoService {
 
-    @Autowired
     private PedidoRepository pedidoRepository;
-
-    @Autowired
-    @Qualifier("catalogoServiceImpl")
     private CatalogoServiceImpl catalogoService;
-
-    @Autowired
     private ItemPedidoRepository itemPedidoRepository;
+
+    public PedidoServiceImpl(
+            PedidoRepository pedidoRepository,
+            CatalogoServiceImpl catalogoService,
+            ItemPedidoRepository itemPedidoRepository
+    ) {
+        this.pedidoRepository = pedidoRepository;
+        this.catalogoService = catalogoService;
+        this.itemPedidoRepository = itemPedidoRepository;
+    }
 
     @Override
     public List<Pedido> findAll() {

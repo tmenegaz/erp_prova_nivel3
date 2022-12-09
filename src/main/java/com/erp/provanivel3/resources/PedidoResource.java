@@ -6,8 +6,6 @@ import com.erp.provanivel3.domain.Pedido;
 import com.erp.provanivel3.domain.enums.StatusPedido;
 import com.erp.provanivel3.services.impl.ItemPedidoServiceImpl;
 import com.erp.provanivel3.services.impl.PedidoServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +21,16 @@ import java.util.stream.Collectors;
 @RequestMapping( "/pedidos")
 public class PedidoResource {
 
-    @Qualifier("pedidoServiceImpl")
-    @Autowired
     private PedidoServiceImpl pedidoService;
-
-    @Autowired
     private ItemPedidoServiceImpl itemPedidoService;
+
+    public PedidoResource(
+            PedidoServiceImpl pedidoService,
+            ItemPedidoServiceImpl itemPedidoService
+    ) {
+        this.pedidoService = pedidoService;
+        this.itemPedidoService = itemPedidoService;
+    }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Pedido> findById(

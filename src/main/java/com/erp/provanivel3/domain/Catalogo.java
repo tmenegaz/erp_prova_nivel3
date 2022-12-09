@@ -3,6 +3,7 @@ package com.erp.provanivel3.domain;
 import com.erp.provanivel3.domain.enums.CondicaoProduto;
 import com.erp.provanivel3.domain.enums.TipoCatalogo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

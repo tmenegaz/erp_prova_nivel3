@@ -7,7 +7,6 @@ import com.erp.provanivel3.repositories.CatalogoRepository;
 import com.erp.provanivel3.services.CatalogoService;
 import com.erp.provanivel3.services.exceptions.DataIntegrityException;
 import com.erp.provanivel3.services.exceptions.IllegalArgumentException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,8 +20,11 @@ import java.util.UUID;
 @Service
 public class CatalogoServiceImpl implements CatalogoService {
 
-    @Autowired
     private CatalogoRepository repository;
+
+    public CatalogoServiceImpl(CatalogoRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<Catalogo> findAll() {

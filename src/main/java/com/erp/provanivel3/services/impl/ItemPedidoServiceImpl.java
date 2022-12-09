@@ -10,8 +10,6 @@ import com.erp.provanivel3.repositories.ItemPedidoRepository;
 import com.erp.provanivel3.repositories.PedidoRepository;
 import com.erp.provanivel3.services.ItemPedidoService;
 import com.erp.provanivel3.services.exceptions.DataIntegrityException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -23,20 +21,22 @@ import java.util.stream.Collectors;
 @Service
 public class ItemPedidoServiceImpl implements ItemPedidoService {
 
-    @Autowired
     private ItemPedidoRepository repository;
-
-    @Autowired
-    @Qualifier("pedidoServiceImpl")
-    private PedidoServiceImpl service;
-
-    @Autowired
     private PedidoRepository pedidoRepository;
-
-    @Autowired
-    @Qualifier("catalogoServiceImpl")
+    private PedidoServiceImpl service;
     private CatalogoServiceImpl catalogoService;
 
+    public ItemPedidoServiceImpl(
+            ItemPedidoRepository repository,
+            PedidoRepository pedidoRepository,
+            PedidoServiceImpl service,
+            CatalogoServiceImpl catalogoService
+    ) {
+        this.repository = repository;
+        this.pedidoRepository = pedidoRepository;
+        this.service = service;
+        this.catalogoService = catalogoService;
+    }
 
     @Override
     public List<ItemPedido> findAll() {
@@ -114,7 +114,7 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
     public void updateAdd(PedidoDTO objDTO) {
         Catalogo catalogo = null;
         for (ItemPedido c : objDTO.getItens()) {
-                catalogo = catalogoService.findById(c.getCatalogo().getId().toString());
+            catalogo = catalogoService.findById(c.getCatalogo().getId().toString());
         }
 
         Pedido pedido = service.findById(objDTO.getId().toString());
