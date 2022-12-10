@@ -120,6 +120,5 @@ public class DBService {
         itemPedidoRepository.saveAll(Arrays.asList(
                 ip3, ip4, ip6, ip7, ip8, ip9, ip10
         ));
-
     }
 }

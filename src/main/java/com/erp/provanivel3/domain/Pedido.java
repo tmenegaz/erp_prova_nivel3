@@ -2,9 +2,13 @@ package com.erp.provanivel3.domain;
 
 import com.erp.provanivel3.domain.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.text.NumberFormat;
@@ -33,6 +37,10 @@ public class Pedido implements Serializable {
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	@NotNull(message="Preenchimento obrigatório")
 	private Date instante;
+
+	@Min(1)
+	@Max(2)
+	@NotNull
 	private Integer status;
 
 	@OneToMany(mappedBy = "id.pedido", cascade = CascadeType.REMOVE)
@@ -80,19 +88,6 @@ public class Pedido implements Serializable {
 		this.itens = itens;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Pedido pedido = (Pedido) o;
-		return getId().equals(pedido.getId()) && getInstante().equals(pedido.getInstante()) && getStatus().equals(pedido.getStatus());
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(getId());
-	}
-
 	public UUID getId() {
 		return id;
 	}
@@ -109,4 +104,19 @@ public class Pedido implements Serializable {
 		this.instante = instante;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Pedido pedido = (Pedido) o;
+
+		return new EqualsBuilder().append(getId(), pedido.getId()).append(getInstante(), pedido.getInstante()).append(getStatus(), pedido.getStatus()).append(getItens(), pedido.getItens()).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37).append(getId()).toHashCode();
+	}
 }

@@ -34,7 +34,7 @@ public class CatalogoResource {
     public ResponseEntity<Catalogo> findById(
             @PathVariable(value = "id") String id
     ) {
-        return ResponseEntity.ok().body(service.findById(id));
+        return ResponseEntity.ok().body(service.findById(id).get());
     }
 
     @GetMapping(path = "/list")

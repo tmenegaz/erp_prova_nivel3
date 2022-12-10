@@ -4,10 +4,11 @@ import com.erp.provanivel3.domain.Pedido;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PedidoService {
 
-    Pedido findById(String id);
+    Optional<Pedido> findById(String id);
 
     void deleteById(String id);
 

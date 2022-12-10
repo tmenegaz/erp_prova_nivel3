@@ -42,13 +42,16 @@ public class CatalogoServiceImpl implements CatalogoService {
     }
 
     @Override
-    public Catalogo findById(String id) {
-        Optional<Catalogo> produto = produto = repository.findOne(
+    public Optional<Catalogo> findById(String id) {
+        try {
+        Optional<Catalogo> catalogo = repository.findOne(
                     QCatalogo.catalogo.id.eq(UUID.fromString(id)));
-        return produto.orElseThrow(
-                () -> new IllegalArgumentException(
+        return catalogo;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(
                         "O item do catálogo não pode ser encontrado: Id: " + id + ", Tipo: " + Catalogo.class.getName()
-                ));
+            );
+        }
     }
 
     @Override
@@ -59,7 +62,7 @@ public class CatalogoServiceImpl implements CatalogoService {
 
     @Override
     public void update(Catalogo obj) {
-        Catalogo newObj = findById(obj.getId().toString());
+        Catalogo newObj = findById(obj.getId().toString()).get();
         updateData(newObj, obj);
         repository.save(newObj);
     }

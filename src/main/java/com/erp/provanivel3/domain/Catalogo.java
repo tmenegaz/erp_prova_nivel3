@@ -3,12 +3,16 @@ package com.erp.provanivel3.domain;
 import com.erp.provanivel3.domain.enums.CondicaoProduto;
 import com.erp.provanivel3.domain.enums.TipoCatalogo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.*;
 
@@ -33,11 +37,21 @@ public class Catalogo implements Serializable {
 	private UUID id;
 
 	@NotBlank
+	@NotNull
 	private String nome;
 
-	@Min(0)
+	@Min(1)
+	@NotNull
 	private Double preco;
+
+	@Min(1)
+	@Max(2)
+	@NotNull
 	private Integer tipo;
+
+	@Min(1)
+	@Max(2)
+	@NotNull
 	private Integer condicao;
 
 	@JsonIgnore
@@ -117,16 +131,20 @@ public class Catalogo implements Serializable {
 		this.preco = preco;
 	}
 
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
+
 		if (o == null || getClass() != o.getClass()) return false;
+
 		Catalogo catalogo = (Catalogo) o;
-		return getId().equals(catalogo.getId()) && getNome().equals(catalogo.getNome()) && getPreco().equals(catalogo.getPreco()) && getTipo().equals(catalogo.getTipo()) && getCondicao().equals(catalogo.getCondicao()) && getItens().equals(catalogo.getItens());
+
+		return new EqualsBuilder().append(getId(), catalogo.getId()).append(getNome(), catalogo.getNome()).append(getPreco(), catalogo.getPreco()).append(getTipo(), catalogo.getTipo()).append(getCondicao(), catalogo.getCondicao()).append(getItens(), catalogo.getItens()).isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId());
+		return new HashCodeBuilder(17, 37).append(getId()).toHashCode();
 	}
 }

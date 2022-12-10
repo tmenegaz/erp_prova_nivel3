@@ -6,6 +6,8 @@ import com.erp.provanivel3.domain.Pedido;
 import com.erp.provanivel3.domain.enums.CondicaoProduto;
 import com.erp.provanivel3.domain.enums.TipoCatalogo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Entity;
@@ -112,13 +114,16 @@ public class CatalogoDTO implements Serializable {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
+
 		if (o == null || getClass() != o.getClass()) return false;
-		CatalogoDTO catalogo = (CatalogoDTO) o;
-		return getId().equals(catalogo.getId()) && getNome().equals(catalogo.getNome()) && getPreco().equals(catalogo.getPreco()) && getTipo().equals(catalogo.getTipo()) && getCondicao().equals(catalogo.getCondicao()) && getItens().equals(catalogo.getItens());
+
+		CatalogoDTO that = (CatalogoDTO) o;
+
+		return new EqualsBuilder().append(getId(), that.getId()).append(getNome(), that.getNome()).append(getPreco(), that.getPreco()).append(getTipo(), that.getTipo()).append(getCondicao(), that.getCondicao()).append(getItens(), that.getItens()).isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId());
+		return new HashCodeBuilder(17, 37).append(getId()).toHashCode();
 	}
 }

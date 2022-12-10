@@ -5,6 +5,8 @@ import com.erp.provanivel3.domain.Pedido;
 import com.erp.provanivel3.domain.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -66,19 +68,6 @@ public class PedidoDTO implements Serializable {
 		this.itens = itens;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		PedidoDTO pedido = (PedidoDTO) o;
-		return getId().equals(pedido.getId()) && getInstante().equals(pedido.getInstante()) && getStatus().equals(pedido.getStatus());
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(getId());
-	}
-
 	public UUID getId() {
 		return id;
 	}
@@ -95,4 +84,19 @@ public class PedidoDTO implements Serializable {
 		this.instante = instante;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o == null || getClass() != o.getClass()) return false;
+
+		PedidoDTO pedidoDTO = (PedidoDTO) o;
+
+		return new EqualsBuilder().append(getId(), pedidoDTO.getId()).append(getInstante(), pedidoDTO.getInstante()).append(getStatus(), pedidoDTO.getStatus()).append(getItens(), pedidoDTO.getItens()).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37).append(getId()).toHashCode();
+	}
 }

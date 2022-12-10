@@ -4,10 +4,11 @@ import com.erp.provanivel3.domain.Catalogo;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CatalogoService {
 
-    Catalogo findById(String id);
+    Optional<Catalogo> findById(String id);
 
     Catalogo save(Catalogo obj);
 

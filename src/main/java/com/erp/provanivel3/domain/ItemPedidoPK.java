@@ -2,6 +2,8 @@ package com.erp.provanivel3.domain;
 
 import com.erp.provanivel3.domain.exception.CondicaoException;
 import com.erp.provanivel3.domain.exception.ValidationException;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
@@ -45,13 +47,16 @@ class ItemPedidoPK implements Serializable {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
+
 		if (o == null || getClass() != o.getClass()) return false;
+
 		ItemPedidoPK that = (ItemPedidoPK) o;
-		return getCatalogo().equals(that.getCatalogo()) && getPedido().equals(that.getPedido());
+
+		return new EqualsBuilder().append(getCatalogo(), that.getCatalogo()).append(getPedido(), that.getPedido()).isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getCatalogo(), getPedido());
+		return new HashCodeBuilder(17, 37).append(getCatalogo()).append(getPedido()).toHashCode();
 	}
 }

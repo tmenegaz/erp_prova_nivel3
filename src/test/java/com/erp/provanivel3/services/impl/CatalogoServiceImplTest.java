@@ -3,91 +3,136 @@ package com.erp.provanivel3.services.impl;
 import com.erp.provanivel3.domain.Catalogo;
 import com.erp.provanivel3.domain.QCatalogo;
 import com.erp.provanivel3.repositories.CatalogoRepository;
-import org.junit.Before;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.erp.provanivel3.common.CatalogoConstantes.*;
+import static com.erp.provanivel3.common.ErpConstantes.*;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CatalogoServiceImplTest {
 
     @InjectMocks
-    CatalogoServiceImpl service;
+    private CatalogoServiceImpl service;
 
     @Mock
-    CatalogoRepository repository;
-
-    @Before
-    public void setup() {
-        repository.saveAll(CATALOGOS);
-    }
+    private CatalogoRepository repository;
 
     @Test
-    public void create() {
+    public void criarCatalogo_ComDadosValidos_RetornaCatalogo() {
         when(repository.save(PROD2)).thenReturn(PROD2);
 
-        Catalogo obj = service.save(PROD2);
-        Assertions.assertEquals(obj, PROD2);
-    }
-
-//      executar individualmente
-    @Test
-    public void findById() {
-        for (Catalogo c: CATALOGOS){
-            when(repository.findOne(
-                    QCatalogo.catalogo.id.eq(c.getId())
-            ))
-                    .thenReturn(Optional.of(c));
-
-            Catalogo obj = service.findById(String.valueOf(c.getId()));
-            Assertions.assertEquals(obj, c);
-        }
+        Catalogo sut = service.save(PROD2);
+        assertThat(sut).isEqualTo(PROD2);
     }
 
     @Test
-    public void findAll() {
-        when(repository.findAll()).thenReturn(CATALOGOS);
+    public void criarCatalogo_ComDadosInvalidos_RetornaCatalogo() {
+        when(repository.save(INVALID_CATALOG))
+                .thenThrow(RuntimeException.class);
 
-        List<Catalogo> list = service.findAll();
-        Assertions.assertEquals(list.size(), CATALOGOS.size());
+        assertThatThrownBy(
+                () -> service.save(INVALID_CATALOG)
+        ).isInstanceOf(RuntimeException.class);
     }
 
+    //      executar individualmente
     @Test
-    public void update() {
+    public void acharCatalago_porId_retprnarUmCatalogodo() {
         when(repository.findOne(
                 QCatalogo.catalogo.id.eq(PROD1.getId())
         ))
                 .thenReturn(Optional.of(PROD1));
 
-        Catalogo objF = service.findById(PROD1.getId().toString());
-
-        when(repository.save(objF)).thenReturn(PROD1);
-
-        Catalogo obj = service.save(PROD1);
-        Assertions.assertEquals(obj, objF);
+        Optional<Catalogo> sut = service.findById(String.valueOf(PROD1.getId()));
+        assertThat(sut).isNotEmpty();
+        assertThat(sut.get()).isEqualTo(PROD1);
     }
 
     @Test
-    public void deleteById() {
+    public void acharCatalago_porIdInexitente_retprnarUmCatalogodo() {
         when(repository.findOne(
-                QCatalogo.catalogo.id.eq(SERV1.getId())
-        ))
-                .thenReturn(Optional.of(SERV1));
+                QCatalogo.catalogo.id.eq(PROD1.getId())
+        )).thenReturn(Optional.empty());
 
-        service.deleteById(String.valueOf(SERV1.getId()));
-        verify(repository, times(1)).deleteById(
-                UUID.fromString(
-                        String.valueOf(SERV1.getId())
-                ));
+        Optional<Catalogo> sut = service.findById(String.valueOf(PROD1.getId()));
+        assertThat(sut).isEmpty();
+    }
+
+    @Test
+    public void acharTodosCatalogos_RetornaTodos() {
+        when(repository.findAll()).thenReturn(CATALOGOS);
+
+        List<Catalogo> suts = service.findAll();
+
+        assertThat(suts).isNotEmpty();
+        assertThat(suts).hasSize(4);
+        assertThat(suts.get(0)).isEqualTo(PROD1);
+    }
+
+    @Test
+    public void acharTodosCatalogos_RetornaNenhum() {
+        when(repository.findAll()).thenReturn(Collections.emptyList());
+
+        List<Catalogo> suts = service.findAll();
+
+        assertThat(suts).isEmpty();
+    }
+
+    @Test
+    public void atualizaCatalogo_comIdValido_retornaCatalogo() {
+        when(repository.findOne(
+                QCatalogo.catalogo.id.eq(PROD1.getId())
+        ))
+                .thenReturn(Optional.of(PROD1));
+
+        Optional<Catalogo> objF = service.findById(PROD1.getId().toString());
+        assertThat(objF.get()).isNotNull();
+
+        when(repository.save(objF.get())).thenReturn(PROD1);
+
+        Catalogo sut = service.save(objF.get());
+        assertThat(sut).isEqualTo(objF.get());
+    }
+
+    @Test
+    public void atualizaCatalogo_comIdinvalido_retornaCatalogo() {
+        when(repository.findOne(
+                QCatalogo.catalogo.id.eq(PROD1.getId())
+        ))
+                .thenReturn(Optional.empty());
+
+        Optional<Catalogo> sut = service.findById(String.valueOf(PROD1.getId()));
+        assertThat(sut).isEmpty();
+
+        when(repository.save(null))
+                .thenThrow(RuntimeException.class);
+
+        assertThatThrownBy(
+                () -> service.save(INVALID_CATALOG)
+        ).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    public void removeCatalog_existId_naoRetornaException() {
+       assertThatCode(() -> service.deleteById(String.valueOf(PROD1.getId())))
+               .doesNotThrowAnyException();
+    }
+
+    @Test
+    public void removeCatalog_existId_retornaException() {
+        doThrow(new RuntimeException())
+                .when(repository).deleteById(UUID.fromString(IDFAKE));
+       assertThatCode(() -> service.deleteById(String.valueOf(UUID.fromString(IDFAKE))))
+               .isInstanceOf(RuntimeException.class);
     }
 }

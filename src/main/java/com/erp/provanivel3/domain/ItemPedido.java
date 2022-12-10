@@ -5,6 +5,8 @@ import com.erp.provanivel3.domain.enums.TipoCatalogo;
 import com.erp.provanivel3.domain.exception.DescontoException;
 import com.erp.provanivel3.domain.exception.ValidationException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -148,13 +150,16 @@ public class ItemPedido implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (o == null || getClass() != o.getClass()) return false;
+
         ItemPedido that = (ItemPedido) o;
-        return getId().equals(that.getId()) && getDesconto().equals(that.getDesconto()) && getQuantidade().equals(that.getQuantidade()) && getPreco().equals(that.getPreco());
+
+        return new EqualsBuilder().append(getId(), that.getId()).append(getDesconto(), that.getDesconto()).append(getQuantidade(), that.getQuantidade()).append(getPreco(), that.getPreco()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return new HashCodeBuilder(17, 37).append(getId()).toHashCode();
     }
 }

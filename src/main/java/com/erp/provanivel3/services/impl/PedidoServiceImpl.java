@@ -1,11 +1,10 @@
 package com.erp.provanivel3.services.impl;
 
+import com.erp.provanivel3.domain.*;
 import com.erp.provanivel3.domain.DTO.PedidoDTO;
-import com.erp.provanivel3.domain.ItemPedido;
-import com.erp.provanivel3.domain.Pedido;
-import com.erp.provanivel3.domain.QPedido;
 import com.erp.provanivel3.domain.exception.CondicaoException;
 import com.erp.provanivel3.domain.exception.DescontoException;
+import com.erp.provanivel3.repositories.CatalogoRepository;
 import com.erp.provanivel3.repositories.ItemPedidoRepository;
 import com.erp.provanivel3.repositories.PedidoRepository;
 import com.erp.provanivel3.services.PedidoService;
@@ -26,16 +25,16 @@ import java.util.UUID;
 public class PedidoServiceImpl implements PedidoService {
 
     private PedidoRepository pedidoRepository;
-    private CatalogoServiceImpl catalogoService;
+    private CatalogoRepository catalogRepository;
     private ItemPedidoRepository itemPedidoRepository;
 
     public PedidoServiceImpl(
             PedidoRepository pedidoRepository,
-            CatalogoServiceImpl catalogoService,
+            CatalogoRepository catalogRepository,
             ItemPedidoRepository itemPedidoRepository
     ) {
         this.pedidoRepository = pedidoRepository;
-        this.catalogoService = catalogoService;
+        this.catalogRepository = catalogRepository;
         this.itemPedidoRepository = itemPedidoRepository;
     }
 
@@ -68,15 +67,18 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-    public Pedido findById(String id) {
-        Optional<Pedido> pedido = pedidoRepository.findOne(
-                QPedido.pedido.id.eq(UUID.fromString(id))
-        );
-        return pedido.orElseThrow(
-                () -> new ObjectNotFoundException(
-                        "Produto ou serviço não encontrado: Id: " + id + ", Tipo: " + Pedido.class.getName()
-                )
-        );
+    public Optional<Pedido> findById(String id) {
+        try {
+            Optional<Pedido> pedido = pedidoRepository.findOne(
+                    QPedido.pedido.id.eq(UUID.fromString(id))
+            );
+            return pedido;
+        } catch (ObjectNotFoundException e) {
+
+            throw  new ObjectNotFoundException(
+                    "Produto ou serviço não encontrado: Id: " + id + ", Tipo: " + Pedido.class.getName()
+            );
+        }
     }
 
     @Override
@@ -89,10 +91,18 @@ public class PedidoServiceImpl implements PedidoService {
                 obj = null;
                 throw new CondicaoException("Não é possível incluir o produto desativado no pedido");
             }
-            ip.setCatalogo(
-                    catalogoService.findById(
-                            ip.getCatalogo().getId().toString()
-                    ));
+
+            Optional<Catalogo> catalogo = null;
+            try {
+                catalogo = catalogRepository.findOne(
+                        QCatalogo.catalogo.id.eq(ip.getCatalogo().getId()));
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException(
+                        "O item do catálogo não pode ser encontrado: Id: " + ip.getCatalogo().getId() + ", Tipo: " + Catalogo.class.getName()
+                );
+            }
+
+            ip.setCatalogo(catalogo.get());
             if (ip.getQuantidade() < 1) {
                 obj = null;
                 throw new DataIntegrityException("A quantidade mínima é 1");
@@ -122,9 +132,9 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public void update(Pedido obj) {
-        Pedido newObj = findById(obj.getId().toString());
-        updateData(newObj, obj);
-        pedidoRepository.save(newObj);
+        Optional<Pedido> newObj = findById(obj.getId().toString());
+        updateData(newObj.get(), obj);
+        pedidoRepository.save(newObj.get());
     }
 
     private void updateData(Pedido newObj, Pedido obj) {
