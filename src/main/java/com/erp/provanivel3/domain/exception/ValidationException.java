@@ -10,22 +10,22 @@ public class ValidationException {
 
     private ValidationException() {}
 
-    public static void ItemPedidoPk(Catalogo produtoServico) throws CondicaoException {
-        if (produtoServico.getCondicao().equals(CondicaoProduto.DESATIVADO)){
-            throw new CondicaoException("Não é possível incluir o produto desativado no pedido", produtoServico.toString());
+    public static void ItemPedidoPk(Catalogo catalogo) throws CondicaoException {
+        if (catalogo.getCondicao().equals(CondicaoProduto.DESATIVADO)){
+            throw new CondicaoException("Não é possível incluir o produto desativado no pedido", catalogo.toString());
         }
     }
 
-    public static void ItemPedido(Double desconto, Pedido pedido, Catalogo produtoServico) throws  DescontoException {
+    public static void ItemPedido(Double desconto, Pedido pedido, Catalogo catalogo) throws  DescontoException {
         if (pedido.getStatus().equals(StatusPedido.FECHADO)) {
             pedido.getItens().clear();
             throw new DescontoException("Não é possível oferecer desconto. O pedido está fechado", pedido.toString());
         }
-        if (produtoServico.getTipo().equals(TipoCatalogo.SERVICO) && desconto > 0.0) {
+        if (catalogo.getTipo().equals(TipoCatalogo.SERVICO) && desconto > 0.0) {
             pedido.getItens().clear();
-            throw new DescontoException("Não é possível oferecer desconto para servicos", produtoServico.toString());
+            throw new DescontoException("Não é possível oferecer desconto para servicos", catalogo.toString());
         }
-        if (pedido == null || produtoServico == null) {
+        if (pedido == null || catalogo == null) {
             throw new NullPointerException("Não pode ser nullo");
         }
     }

@@ -33,7 +33,7 @@ public class ErpConstantes {
     public static final Catalogo SERV1 = new Catalogo( UUID.fromString("c"+ID),
             "Tinturaria", 59.75, TipoCatalogo.SERVICO, CondicaoProduto.ATIVADO);
     public static final Catalogo SERV2 = new Catalogo( UUID.fromString("d"+ID),
-            "Pintura", 49.90, TipoCatalogo.SERVICO, CondicaoProduto.ATIVADO);
+            "Pintura", 49.90, TipoCatalogo.SERVICO, CondicaoProduto.DESATIVADO);
 
     public static final Catalogo INVALID_CATALOG = new Catalogo( UUID.fromString("e"+ID),
             "", 0.0, null, null);
@@ -47,9 +47,13 @@ public class ErpConstantes {
 
     public static final List<Pedido> PEDIDOS = Arrays.asList(PED1);
 
-    public static final ItemPedido IP1 = new ItemPedido(PED2, PROD1, 0.05, 3, 589.90);
+
     public static final ItemPedido IP2 = new ItemPedido(PED1, PROD2, 0.05, 2, 78.59);
     public static final ItemPedido IP3 = new ItemPedido(PED1, SERV1, 0.0, 2, 49.90);
+
+
+    public static final ItemPedido IP4 = new ItemPedido(PED3, PROD1, 0.05, 2, 78.59);
+    public static final ItemPedido IP5 = new ItemPedido(PED3, SERV2, 0.0, 2, 49.90);
 
     public static final List<ItemPedido> ITENS = Arrays.asList(IP2, IP3);
 
