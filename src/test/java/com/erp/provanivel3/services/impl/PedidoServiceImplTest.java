@@ -16,13 +16,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import javax.xml.catalog.CatalogException;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static com.erp.provanivel3.common.ErpConstantes.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.doThrow;
+import static com.erp.provanivel3.services.ErpConstantes.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -112,7 +111,7 @@ public class PedidoServiceImplTest {
             ip.setCatalogo(PROD1);
             assertThat(ip.getCatalogo()).isNull();
         }
-         when(repository.save(PED3))
+        when(repository.save(PED3))
                 .thenThrow(CondicaoException.class);
 
         assertThatThrownBy(
@@ -175,7 +174,7 @@ public class PedidoServiceImplTest {
             ip.setCatalogo(SERV1);
             assertThat(ip.getDesconto()).isNull();
         }
-         when(repository.save(PED2))
+        when(repository.save(PED2))
                 .thenThrow(DescontoException.class);
 
         assertThatThrownBy(

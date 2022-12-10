@@ -1,4 +1,4 @@
-package com.erp.provanivel3.common;
+package com.erp.provanivel3.services;
 
 import com.erp.provanivel3.domain.Catalogo;
 import com.erp.provanivel3.domain.ItemPedido;
@@ -6,18 +6,16 @@ import com.erp.provanivel3.domain.Pedido;
 import com.erp.provanivel3.domain.enums.CondicaoProduto;
 import com.erp.provanivel3.domain.enums.StatusPedido;
 import com.erp.provanivel3.domain.enums.TipoCatalogo;
-import com.erp.provanivel3.repositories.CatalogoRepository;
-import com.erp.provanivel3.repositories.ItemPedidoRepository;
-import com.erp.provanivel3.repositories.PedidoRepository;
-import com.erp.provanivel3.services.DBService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.tokens.ScalarToken;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
+@Service
 public class ErpConstantes {
 
     public ErpConstantes() {

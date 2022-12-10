@@ -16,15 +16,22 @@ public class DevConfig {
     @Autowired
     private DBService dbService;
 
+    @Value("${spring.profiles.active}")
+    private String profile;
+
     @Value("${spring.jpa.hibernate.ddl-auto}")
     private String strategy;
 
     @Bean
     public boolean instatiateDataBase() throws ParseException {
+        if ("dev".equals(profile)) {
+
         if (!"update".equals(strategy)) return false;
 
         dbService.instatiateDataBase();
         return true;
+        }
+        return false;
     }
 
 }

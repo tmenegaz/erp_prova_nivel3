@@ -14,9 +14,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.erp.provanivel3.common.ErpConstantes.*;
+import static com.erp.provanivel3.services.ErpConstantes.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CatalogoServiceImplTest {
@@ -124,15 +125,15 @@ public class CatalogoServiceImplTest {
 
     @Test
     public void removeCatalog_existId_naoRetornaException() {
-       assertThatCode(() -> service.deleteById(String.valueOf(PROD1.getId())))
-               .doesNotThrowAnyException();
+        assertThatCode(() -> service.deleteById(String.valueOf(PROD1.getId())))
+                .doesNotThrowAnyException();
     }
 
     @Test
     public void removeCatalog_existId_retornaException() {
         doThrow(new RuntimeException())
                 .when(repository).deleteById(UUID.fromString(IDFAKE));
-       assertThatCode(() -> service.deleteById(String.valueOf(UUID.fromString(IDFAKE))))
-               .isInstanceOf(RuntimeException.class);
+        assertThatCode(() -> service.deleteById(String.valueOf(UUID.fromString(IDFAKE))))
+                .isInstanceOf(RuntimeException.class);
     }
 }
