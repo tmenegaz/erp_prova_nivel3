@@ -50,10 +50,10 @@ public class ErpConstantes {
 
     public static final ItemPedido IP2 = new ItemPedido(PED1, PROD2, 0.05, 2, 78.59);
     public static final ItemPedido IP3 = new ItemPedido(PED1, SERV1, 0.0, 2, 49.90);
-
-
     public static final ItemPedido IP4 = new ItemPedido(PED3, PROD1, 0.05, 2, 78.59);
     public static final ItemPedido IP5 = new ItemPedido(PED3, SERV2, 0.0, 2, 49.90);
+    public static final ItemPedido IP6 = new ItemPedido(PED4, PROD2, 0.05, 2, 78.59);
+    public static final ItemPedido IP7 = new ItemPedido(PED2, SERV1, 0.05, 2, 49.90);
 
     public static final List<ItemPedido> ITENS = Arrays.asList(IP2, IP3);
 

@@ -4,6 +4,7 @@ import com.erp.provanivel3.domain.ItemPedido;
 import com.erp.provanivel3.domain.Pedido;
 import com.erp.provanivel3.domain.QCatalogo;
 import com.erp.provanivel3.domain.exception.CondicaoException;
+import com.erp.provanivel3.domain.exception.DescontoException;
 import com.erp.provanivel3.repositories.CatalogoRepository;
 import com.erp.provanivel3.repositories.ItemPedidoRepository;
 import com.erp.provanivel3.repositories.PedidoRepository;
@@ -118,6 +119,68 @@ public class PedidoServiceImplTest {
                 () -> service.save(PED3)
         ).isInstanceOf(CondicaoException.class);
 
+
+    }
+
+    @Test
+    public void criarPedido_ComDescontoPedidoFechado_RetornaException() {
+
+        when(catalogoRepository.findOne(
+                QCatalogo.catalogo.id.eq(PROD2.getId())
+        )).thenReturn(Optional.of(PROD2));
+        assertThat(PROD2).isNotNull();
+
+        PED4.getItens().addAll(Arrays.asList(IP6));
+
+        when(repository.save(PED4)).thenReturn(PED4);
+
+        PROD2.getItens().addAll(Arrays.asList(IP6));
+
+        when(itemPedidoRepository.save(IP6)).thenReturn(IP6);
+        assertThat(IP6).isNotNull();
+
+        for (ItemPedido ip: PED4.getItens()) {
+            ip.setCatalogo(PROD2);
+            ip.setDesconto(ip.getDesconto(), PED4, ip.getCatalogo() );
+            assertThat(ip.getDesconto()).isNull();
+        }
+        when(repository.save(PED4))
+                .thenThrow(DescontoException.class);
+
+        assertThatThrownBy(
+                () -> service.save(PED4)
+        ).isInstanceOf(DescontoException.class);
+
+
+    }
+
+    @Test
+    public void criarPedido_ComDescontoServico_RetornaException() {
+
+        when(catalogoRepository.findOne(
+                QCatalogo.catalogo.id.eq(SERV1.getId())
+        )).thenReturn(Optional.of(SERV1));
+        assertThat(SERV1).isNotNull();
+
+        PED2.getItens().addAll(Arrays.asList(IP7));
+
+        when(repository.save(PED2)).thenReturn(PED2);
+
+        SERV1.getItens().addAll(Arrays.asList(IP7));
+
+        when(itemPedidoRepository.save(IP7)).thenReturn(IP7);
+        assertThat(IP7).isNotNull();
+
+        for (ItemPedido ip: PED2.getItens()) {
+            ip.setCatalogo(SERV1);
+            assertThat(ip.getDesconto()).isNull();
+        }
+         when(repository.save(PED2))
+                .thenThrow(DescontoException.class);
+
+        assertThatThrownBy(
+                () -> service.save(PED2)
+        ).isInstanceOf(DescontoException.class);
 
     }
 }
