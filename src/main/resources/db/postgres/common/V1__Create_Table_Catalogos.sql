@@ -1,9 +1,9 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 create table catalogos (
     id uuid not null,
-    condicao int4,
-    nome varchar(255),
-    preco float8,
-    tipo int4,
+    condicao int4 not null,
+    nome varchar(255) not null,
+    preco float8 not null,
+    tipo int4 not null,
     primary key (id)
 );

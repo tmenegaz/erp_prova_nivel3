@@ -5,14 +5,10 @@ import com.erp.provanivel3.domain.enums.TipoCatalogo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.*;
 
@@ -37,21 +33,22 @@ public class Catalogo implements Serializable {
 	private UUID id;
 
 	@NotBlank
-	@NotNull
+	@NotEmpty
+	@Column(nullable = false, unique = true)
 	private String nome;
 
 	@Min(1)
-	@NotNull
+	@Column(nullable = false)
 	private Double preco;
 
 	@Min(1)
 	@Max(2)
-	@NotNull
+	@Column(nullable = false)
 	private Integer tipo;
 
-	@Min(1)
-	@Max(2)
-	@NotNull
+	@Min(value = 1, message = "Não pode ser vazio ou menor do que 1")
+	@Max(value = 2, message = "Não pode ser vazio ou maior do que 2")
+	@Column(nullable = false)
 	private Integer condicao;
 
 	@JsonIgnore

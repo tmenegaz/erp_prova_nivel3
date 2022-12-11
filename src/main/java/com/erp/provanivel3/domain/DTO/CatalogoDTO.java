@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -29,10 +30,15 @@ public class CatalogoDTO implements Serializable {
 	private String nome;
 
 	@Digits(integer=6, fraction=2, message = "Preenchimento obrigatório")
-	@Min(0)
+	@Min(1)
 	private Double preco;
 
+	@Min(1)
+	@Max(2)
 	private Integer tipo;
+
+	@Min(value = 1, message = "Não pode ser vazio ou menor do que 1")
+	@Max(value = 2, message = "Não pode ser vazio ou maior do que 2")
 	private Integer condicao;
 
 	@JsonIgnore

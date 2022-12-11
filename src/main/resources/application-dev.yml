@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   flyway:
-    locations: /db/{vendor}/postgres.common
+    locations: /db/{vendor}/common
   application:
     name: dev
   datasource:

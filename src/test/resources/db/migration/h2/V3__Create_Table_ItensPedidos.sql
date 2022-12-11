@@ -1,7 +1,7 @@
 create table itens_pedidos (
-    desconto float8,
-    preco float8,
-    quantidade int4,
+    desconto float8 not null,
+    preco float8 not null,
+    quantidade int4 not null,
     pedido_id uuid not null,
     catalogo_id uuid not null,
     foreign key (pedido_id) references pedidos,

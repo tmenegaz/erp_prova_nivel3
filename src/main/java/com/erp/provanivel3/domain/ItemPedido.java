@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -15,7 +16,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Objects;
 
 @Entity
 @Table(name = "itens_pedidos")
@@ -28,10 +28,15 @@ public class ItemPedido implements Serializable {
 
     @Min(0)
     @Max(1)
+    @Column(nullable = false)
     private Double desconto;
-    @Min(value = 1)
-    private Integer quantidade;
+
     @Min(1)
+    @Column(nullable = false)
+    private Integer quantidade;
+
+    @Min(1)
+    @Column(nullable = false)
     private Double preco;
 
     public ItemPedido() {

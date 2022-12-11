@@ -26,15 +26,24 @@ public class ErpConstantes {
 
     public static final Catalogo PROD1 = new Catalogo( UUID.fromString("a"+ID),
             "Tênis", 589.90, TipoCatalogo.PRODUTO, CondicaoProduto.DESATIVADO);
+
     public static final Catalogo PROD2 = new Catalogo( UUID.fromString("b"+ID),
             "Camisa", 78.59, TipoCatalogo.PRODUTO, CondicaoProduto.ATIVADO);
+
+    public static final Catalogo PROD3 = new Catalogo("Moto", 22800.49,
+            TipoCatalogo.PRODUTO, CondicaoProduto.ATIVADO);
+
     public static final Catalogo SERV1 = new Catalogo( UUID.fromString("c"+ID),
             "Tinturaria", 59.75, TipoCatalogo.SERVICO, CondicaoProduto.ATIVADO);
+
     public static final Catalogo SERV2 = new Catalogo( UUID.fromString("d"+ID),
             "Pintura", 49.90, TipoCatalogo.SERVICO, CondicaoProduto.DESATIVADO);
 
-    public static final Catalogo INVALID_CATALOG = new Catalogo( UUID.fromString("e"+ID),
+    public static final Catalogo EMPTY_CATALOG = new Catalogo();
+
+    public static final Catalogo INVALID_CATALOG = new Catalogo(
             "", 0.0, null, null);
+
 
     public static final List<Catalogo> CATALOGOS = Arrays.asList(PROD2, SERV1);
 

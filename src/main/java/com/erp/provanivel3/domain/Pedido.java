@@ -36,11 +36,12 @@ public class Pedido implements Serializable {
 
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	@NotNull(message="Preenchimento obrigatório")
+	@Column(nullable = false)
 	private Date instante;
 
 	@Min(1)
 	@Max(2)
-	@NotNull
+	@Column(nullable = false)
 	private Integer status;
 
 	@OneToMany(mappedBy = "id.pedido", cascade = CascadeType.REMOVE)
