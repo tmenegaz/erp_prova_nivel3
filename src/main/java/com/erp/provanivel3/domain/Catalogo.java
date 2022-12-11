@@ -32,7 +32,6 @@ public class Catalogo implements Serializable {
 	@Column(name = "id", updatable = false, nullable = false)
 	private UUID id;
 
-	@NotBlank
 	@NotEmpty
 	@Column(nullable = false, unique = true)
 	private String nome;
@@ -66,12 +65,12 @@ public class Catalogo implements Serializable {
 		this.condicao = (condicao == null) ? null : condicao.getCod();
 	}
 
-	public Catalogo(UUID id, String nome, Double preco, TipoCatalogo tipo, CondicaoProduto condicaoProduto) {
+	public Catalogo(UUID id, String nome, Double preco, TipoCatalogo tipo, CondicaoProduto condicao) {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 		this.tipo = (tipo==null) ? null : tipo.getCod();
-		this.condicao = (condicaoProduto == null) ? null : condicaoProduto.getCod();
+		this.condicao = (condicao == null) ? null : condicao.getCod();
 	}
 
 	@JsonIgnore

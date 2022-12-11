@@ -32,19 +32,4 @@ public class CatalogoRepositoryTest {
         assertThat(sut.getTipo()).isEqualTo(PROD3.getTipo());
         assertThat(sut.getCondicao()).isEqualTo(PROD3.getCondicao());
     }
-
-    @Test
-    public void criarCatalogo_ComDadosInvalidos_RetornaNull() {
-        Catalogo empty = new Catalogo();
-        Catalogo invalid = new Catalogo("", 0.0, null, null);
-
-        Throwable throwableEmpty = catchThrowable(() -> repository.save(empty));
-        assertThat(throwableEmpty).isNull();
-
-        Throwable throwableInvalid = catchThrowable(() -> repository.save(invalid));
-        assertThat(throwableInvalid).isNull();
-
-    }
-
-
 }

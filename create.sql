@@ -160,3 +160,9 @@ create table pedidos (id uuid not null, instante timestamp not null, status int4
 alter table catalogos add constraint UK_h466xhlql6u6uka8mcru1u3o4 unique (nome);
 alter table itens_pedidos add constraint FKjg75o3y4r665tq9f72gyk64ut foreign key (pedido_id) references pedidos;
 alter table itens_pedidos add constraint FKkyvj1e6sttq2qjakr7pqf6uik foreign key (catalogo_id) references catalogos;
+create table catalogos (id uuid not null, condicao int4 not null check (condicao<=2 AND condicao>=1), nome varchar(255) not null, preco float8 not null check (preco>=1), tipo int4 not null check (tipo>=1 AND tipo<=2), primary key (id));
+create table itens_pedidos (desconto float8 not null check (desconto>=0 AND desconto<=1), preco float8 not null check (preco>=1), quantidade int4 not null check (quantidade>=1), pedido_id uuid not null, catalogo_id uuid not null, primary key (catalogo_id, pedido_id));
+create table pedidos (id uuid not null, instante timestamp not null, status int4 not null check (status>=1 AND status<=2), primary key (id));
+alter table catalogos add constraint UK_h466xhlql6u6uka8mcru1u3o4 unique (nome);
+alter table itens_pedidos add constraint FKjg75o3y4r665tq9f72gyk64ut foreign key (pedido_id) references pedidos;
+alter table itens_pedidos add constraint FKkyvj1e6sttq2qjakr7pqf6uik foreign key (catalogo_id) references catalogos;
