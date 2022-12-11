@@ -20,8 +20,8 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import static com.erp.provanivel3.services.ErpConstantes.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,7 +42,6 @@ public class PedidoServiceImplTest {
 
     @Mock
     private ItemPedidoRepository itemPedidoRepository;
-
 
     @Test
     public void criarPedido_ComDadosValidos_RetornaPedido() {
@@ -117,8 +116,6 @@ public class PedidoServiceImplTest {
         assertThatThrownBy(
                 () -> service.save(PED3)
         ).isInstanceOf(CondicaoException.class);
-
-
     }
 
     @Test
@@ -181,5 +178,40 @@ public class PedidoServiceImplTest {
                 () -> service.save(PED2)
         ).isInstanceOf(DescontoException.class);
 
+    }
+
+    @Test
+    public void deletarCatalogo_VinculadoAoPedido_RetornaException() {
+        when(catalogoRepository.findOne(
+                QCatalogo.catalogo.id.eq(PROD2.getId())
+        )).thenReturn(Optional.of(PROD2));
+        assertThat(PROD2).isNotNull();
+
+        when(catalogoRepository.findOne(
+                QCatalogo.catalogo.id.eq(SERV1.getId())
+        )).thenReturn(Optional.of(SERV1));
+        assertThat(SERV1).isNotNull();
+
+        PED1.getItens().addAll(Arrays.asList(IP2, IP3));
+
+        when(repository.save(PED1)).thenReturn(PED1);
+
+        SERV1.getItens().addAll(Arrays.asList(IP3));
+        PROD2.getItens().addAll(Arrays.asList(IP2));
+
+        when(itemPedidoRepository.save(IP2)).thenReturn(IP2);
+        assertThat(IP2).isNotNull();
+        when(itemPedidoRepository.save(IP3)).thenReturn(IP3);
+        assertThat(IP3).isNotNull();
+
+        for (ItemPedido ip: PED1.getItens()) {
+            ip.setCatalogo(SERV1);
+            ip.setCatalogo(PROD2);
+
+            doThrow(new RuntimeException())
+                    .when(repository).deleteById(SERV1.getId());
+            assertThatCode(() -> service.deleteById(String.valueOf(SERV1.getId())))
+                    .isInstanceOf(RuntimeException.class);
+        }
     }
 }

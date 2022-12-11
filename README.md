@@ -126,4 +126,4 @@ Alguns dos testes automatizados foram implementados e funcinam. Minha sugestão 
 
 O ``CatalogoServiceImplTest.java`` testa apenas o modelo ``Catalogo`` para o ``CRUD`` do serviço.
 
-O arquivo ``PedidoServiceImplTest.java`` testa as funcionalidade que controlam quando é possível dar desconto ou inserir um produtos/servico. 
+O arquivo ``PedidoServiceImplTest.java`` testa as funcionalidade que controlam quando é possível dar desconto, inserir ou apagar um produtos/servico. 
