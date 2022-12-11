@@ -1,6 +1,7 @@
 package com.erp.provanivel3.services;
 
 import com.erp.provanivel3.domain.Catalogo;
+import com.erp.provanivel3.domain.DTO.CatalogoDTO;
 import com.erp.provanivel3.domain.ItemPedido;
 import com.erp.provanivel3.domain.Pedido;
 import com.erp.provanivel3.domain.enums.CondicaoProduto;
@@ -30,7 +31,7 @@ public class ErpConstantes {
     public static final Catalogo PROD2 = new Catalogo( UUID.fromString("b"+ID),
             "Camisa", 78.59, TipoCatalogo.PRODUTO, CondicaoProduto.ATIVADO);
 
-    public static final Catalogo PROD3 = new Catalogo("Moto", 22800.49,
+    public static final Catalogo PROD3 = new Catalogo("Motocicleta", 22800.49,
             TipoCatalogo.PRODUTO, CondicaoProduto.ATIVADO);
 
     public static final Catalogo SERV1 = new Catalogo( UUID.fromString("c"+ID),
@@ -38,6 +39,12 @@ public class ErpConstantes {
 
     public static final Catalogo SERV2 = new Catalogo( UUID.fromString("d"+ID),
             "Pintura", 49.90, TipoCatalogo.SERVICO, CondicaoProduto.DESATIVADO);
+
+    public static final CatalogoDTO PRODDTO = new CatalogoDTO(UUID.fromString("e"+ID),"Fusca", 12800.49,
+            TipoCatalogo.PRODUTO, CondicaoProduto.ATIVADO);
+
+    public static final Catalogo FROMDTO = new Catalogo(PRODDTO.getId(), PRODDTO.getNome(), PRODDTO.getPreco(), PRODDTO.getTipo(), PRODDTO.getCondicao());
+
 
     public static final Catalogo EMPTY_CATALOG = new Catalogo();
 

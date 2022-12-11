@@ -26,10 +26,10 @@ public class DevConfig {
     public boolean instatiateDataBase() throws ParseException {
         if ("dev".equals(profile)) {
 
-        if (!"update".equals(strategy)) return false;
+            if (!"update".equals(strategy)) return false;
 
-        dbService.instatiateDataBase();
-        return true;
+            dbService.instatiateDataBase();
+            return true;
         }
         return false;
     }

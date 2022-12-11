@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import static com.erp.provanivel3.services.ErpConstantes.PROD3;
+import static com.erp.provanivel3.services.ErpConstantes.*;
 import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
@@ -31,5 +31,10 @@ public class CatalogoRepositoryTest {
         assertThat(sut.getPreco()).isEqualTo(PROD3.getPreco());
         assertThat(sut.getTipo()).isEqualTo(PROD3.getTipo());
         assertThat(sut.getCondicao()).isEqualTo(PROD3.getCondicao());
+    }
+
+    @Test
+    public void deletarCatalogo_VinculadoPedido_RetornaException() {
+
     }
 }
