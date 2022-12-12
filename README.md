@@ -122,6 +122,8 @@ Na raiz do projeto está o arquivo com as coleções para teste no Postman:
 A estratégia do banco está no arquivo ``application-dev.yml`` ou ``application-test.yml`` e pode ser alterada em ``spring.jpa.hibernate.ddl-auto: update`` para ``none``. A opção para ``test`` está como ``create``.
 
 Para testar você pode digitar no terminal, diretório root do projeto, o comando: ``mvn clean test``. Também pode ver o relatório de cobertura com o comando: ``mvn clean test jacoco:report``.
+O relatório estará disponível no ``target/site/jacoc/index.html``
+
 Alguns dos testes automatizados foram implementados e funcinam. Minha sugestão é a utilização do Postman com as URLs acima para os casos omitidos.
 
 O ``CatalogoServiceImplTest.java`` testa apenas o modelo ``Catalogo`` para o ``CRUD`` do serviço.
