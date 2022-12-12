@@ -263,23 +263,15 @@ public class PedidoServiceImplTest {
     @Test
     public void consultraPedido_porId_RetornaPedido() {
 
-        when(repository.save(PED1)).thenReturn(PED1);
-        assertThat(PED1).isNotNull();
         PED1.setId(UUID.randomUUID());
-        assertThat(PED1.getId()).isNotNull();
         UUID id = PED1.getId();
-
-        Pedido sut = service.save(PED1);
-
-         PED1.setId(id);
-        assertThat(PED1.getId()).isNotNull();
         when(repository.findOne(
-                QPedido.pedido.id.eq(sut.getId()))).thenReturn(Optional.of(sut));
+                QPedido.pedido.id.eq(PED1.getId()))).thenReturn(Optional.of(PED1));
 
-        Optional<Pedido> sutOpt = service.findById(String.valueOf(sut.getId()));
+        Optional<Pedido> sut = service.findById(String.valueOf(PED1.getId()));
 
-        assertThat(sutOpt.get()).isNotNull();
-        assertThat(sutOpt.get()).isEqualTo(PED1);
+        assertThat(sut).isNotNull();
+        assertThat(sut.get()).isEqualTo(PED1);
     }
 
     @Test

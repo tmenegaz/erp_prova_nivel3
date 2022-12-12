@@ -16,8 +16,7 @@ import java.util.UUID;
 
 import static com.erp.provanivel3.services.ErpConstantes.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CatalogoServiceImplTest {
@@ -61,11 +60,12 @@ public class CatalogoServiceImplTest {
 
     @Test
     public void acharCatalago_porIdInexitente_retprnarUmCatalogado() {
+        PROD2.setId(UUID.randomUUID());
         when(repository.findOne(
-                QCatalogo.catalogo.id.eq(PROD1.getId())
+                QCatalogo.catalogo.id.eq(PROD2.getId())
         )).thenReturn(Optional.empty());
 
-        Optional<Catalogo> sut = service.findById(String.valueOf(PROD1.getId()));
+        Optional<Catalogo> sut = service.findById(String.valueOf(PROD2.getId()));
         assertThat(sut).isEmpty();
     }
 
@@ -76,8 +76,8 @@ public class CatalogoServiceImplTest {
         List<Catalogo> suts = service.findAll();
 
         assertThat(suts).isNotEmpty();
-        assertThat(suts).hasSize(4);
-        assertThat(suts.get(0)).isEqualTo(PROD1);
+        assertThat(suts).hasSize(CATALOGOS.size());
+        assertThat(suts.get(0)).isEqualTo(PROD2);
     }
 
     @Test
@@ -107,15 +107,9 @@ public class CatalogoServiceImplTest {
 
     @Test
     public void atualizaCatalogo_comIdinvalido_retornaCatalogo() {
-        when(repository.findOne(
-                QCatalogo.catalogo.id.eq(PROD1.getId())
-        ))
-                .thenReturn(Optional.empty());
 
-        Optional<Catalogo> sut = service.findById(String.valueOf(PROD1.getId()));
-        assertThat(sut).isEmpty();
 
-        when(repository.save(null))
+        when(repository.save(INVALID_CATALOG))
                 .thenThrow(RuntimeException.class);
 
         assertThatThrownBy(
@@ -125,6 +119,9 @@ public class CatalogoServiceImplTest {
 
     @Test
     public void removeCatalogo_existId_naoRetornaException() {
+         PROD1.setId(UUID.randomUUID());
+        doNothing()
+                .when(repository).deleteById(PROD1.getId());
         assertThatCode(() -> service.deleteById(String.valueOf(PROD1.getId())))
                 .doesNotThrowAnyException();
     }
