@@ -20,9 +20,11 @@ import org.mockito.quality.Strictness;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static com.erp.provanivel3.services.ErpConstantes.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
@@ -261,42 +263,48 @@ public class PedidoServiceImplTest {
     @Test
     public void consultraPedido_porId_RetornaPedido() {
 
-//        when(catalogoRepository.findOne(
-//                QCatalogo.catalogo.id.eq(PROD2.getId())
-//        )).thenReturn(Optional.of(PROD2));
-//        assertThat(PROD2).isNotNull();
-//
-//        when(catalogoRepository.findOne(
-//                QCatalogo.catalogo.id.eq(SERV1.getId())
-//        )).thenReturn(Optional.of(SERV1));
-//        assertThat(SERV1).isNotNull();
-//
-//        PED1.getItens().addAll(Arrays.asList(IP2, IP3));
-
         when(repository.save(PED1)).thenReturn(PED1);
-
-//        SERV1.getItens().addAll(Arrays.asList(IP3));
-//        PROD2.getItens().addAll(Arrays.asList(IP2));
-
-//        when(itemPedidoRepository.save(IP2)).thenReturn(IP2);
-//        assertThat(IP2).isNotNull();
-//        when(itemPedidoRepository.save(IP3)).thenReturn(IP3);
-//        assertThat(IP3).isNotNull();
-
-//        for (ItemPedido ip: PED1.getItens()) {
-//            ip.setCatalogo(SERV1);
-//            ip.setCatalogo(PROD2);
-//        }
+        assertThat(PED1).isNotNull();
+        PED1.setId(UUID.randomUUID());
+        assertThat(PED1.getId()).isNotNull();
+        UUID id = PED1.getId();
 
         Pedido sut = service.save(PED1);
 
+         PED1.setId(id);
+        assertThat(PED1.getId()).isNotNull();
         when(repository.findOne(
                 QPedido.pedido.id.eq(sut.getId()))).thenReturn(Optional.of(sut));
 
         Optional<Pedido> sutOpt = service.findById(String.valueOf(sut.getId()));
 
-        assertThat(sutOpt).isNotNull();
-        assertThat(sutOpt).isEqualTo(PED1);
+        assertThat(sutOpt.get()).isNotNull();
+        assertThat(sutOpt.get()).isEqualTo(PED1);
+    }
+
+    @Test
+    public void consultraPedido_porIdInvazio_RetornaEmpty() {
+
+        UUID id = UUID.randomUUID();
+        when(repository.findOne(
+                QPedido.pedido.id.eq(id))).thenReturn(Optional.empty());
+
+        Optional<Pedido> sut = service.findById(String.valueOf(id));
+        assertThat(sut).isEmpty();
+    }
+
+    @Test
+    public void removeCatalogo_existId_naoRetornaException() {
+        assertThatCode(() -> service.deleteById(String.valueOf(PROD1.getId())))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    public void removeCatalogo_existId_retornaException() {
+        doThrow(new RuntimeException())
+                .when(repository).deleteById(UUID.fromString(IDFAKE));
+        assertThatCode(() -> service.deleteById(String.valueOf(UUID.fromString(IDFAKE))))
+                .isInstanceOf(RuntimeException.class);
     }
 
 }
