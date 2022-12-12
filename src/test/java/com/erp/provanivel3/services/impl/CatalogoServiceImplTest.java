@@ -3,6 +3,7 @@ package com.erp.provanivel3.services.impl;
 import com.erp.provanivel3.domain.Catalogo;
 import com.erp.provanivel3.domain.QCatalogo;
 import com.erp.provanivel3.repositories.CatalogoRepository;
+import com.erp.provanivel3.services.exceptions.DataIntegrityException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -128,9 +129,9 @@ public class CatalogoServiceImplTest {
 
     @Test
     public void removeCatalogo_existId_retornaException() {
-        doThrow(new RuntimeException())
+        doThrow(new DataIntegrityException("Não é possível excluir o produtos associado a um pedido"))
                 .when(repository).deleteById(UUID.fromString(IDFAKE));
         assertThatCode(() -> service.deleteById(String.valueOf(UUID.fromString(IDFAKE))))
-                .isInstanceOf(RuntimeException.class);
+                .isInstanceOf(DataIntegrityException.class);
     }
 }
