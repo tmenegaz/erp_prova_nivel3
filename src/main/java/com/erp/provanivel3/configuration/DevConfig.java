@@ -19,7 +19,7 @@ public class DevConfig {
     @Value("${spring.profiles.active}")
     private String profile;
 
-    @Value("${spring.jpa.hibernate.ddl-auto}")
+    @Value("${spring.jpa.properties.hibernate.ddl-auto}")
     private String strategy;
 
     @Bean

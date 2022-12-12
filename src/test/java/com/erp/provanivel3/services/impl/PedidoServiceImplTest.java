@@ -3,6 +3,7 @@ package com.erp.provanivel3.services.impl;
 import com.erp.provanivel3.domain.ItemPedido;
 import com.erp.provanivel3.domain.Pedido;
 import com.erp.provanivel3.domain.QCatalogo;
+import com.erp.provanivel3.domain.QPedido;
 import com.erp.provanivel3.domain.exception.CondicaoException;
 import com.erp.provanivel3.domain.exception.DescontoException;
 import com.erp.provanivel3.repositories.CatalogoRepository;
@@ -17,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static com.erp.provanivel3.services.ErpConstantes.*;
@@ -214,4 +216,87 @@ public class PedidoServiceImplTest {
                     .isInstanceOf(RuntimeException.class);
         }
     }
+
+    @Test
+    public void consultraPedido_acharTodos_RetornaPedidos() {
+
+        when(catalogoRepository.findOne(
+                QCatalogo.catalogo.id.eq(PROD2.getId())
+        )).thenReturn(Optional.of(PROD2));
+        assertThat(PROD2).isNotNull();
+
+        when(catalogoRepository.findOne(
+                QCatalogo.catalogo.id.eq(SERV1.getId())
+        )).thenReturn(Optional.of(SERV1));
+        assertThat(SERV1).isNotNull();
+
+        PED1.getItens().addAll(Arrays.asList(IP2, IP3));
+
+        when(repository.save(PED1)).thenReturn(PED1);
+
+        SERV1.getItens().addAll(Arrays.asList(IP3));
+        PROD2.getItens().addAll(Arrays.asList(IP2));
+
+        when(itemPedidoRepository.save(IP2)).thenReturn(IP2);
+        assertThat(IP2).isNotNull();
+        when(itemPedidoRepository.save(IP3)).thenReturn(IP3);
+        assertThat(IP3).isNotNull();
+
+        for (ItemPedido ip: PED1.getItens()) {
+            ip.setCatalogo(SERV1);
+            ip.setCatalogo(PROD2);
+        }
+
+        Pedido sut = service.save(PED1);
+
+        when(repository.findAll()).thenReturn(PEDIDOS);
+
+        List<Pedido> suts = service.findAll();
+
+        assertThat(suts).isNotEmpty();
+        assertThat(suts.get(0)).isEqualTo(sut);
+        assertThat(suts).hasSize(PEDIDOS.size());
+    }
+
+    @Test
+    public void consultraPedido_porId_RetornaPedido() {
+
+//        when(catalogoRepository.findOne(
+//                QCatalogo.catalogo.id.eq(PROD2.getId())
+//        )).thenReturn(Optional.of(PROD2));
+//        assertThat(PROD2).isNotNull();
+//
+//        when(catalogoRepository.findOne(
+//                QCatalogo.catalogo.id.eq(SERV1.getId())
+//        )).thenReturn(Optional.of(SERV1));
+//        assertThat(SERV1).isNotNull();
+//
+//        PED1.getItens().addAll(Arrays.asList(IP2, IP3));
+
+        when(repository.save(PED1)).thenReturn(PED1);
+
+//        SERV1.getItens().addAll(Arrays.asList(IP3));
+//        PROD2.getItens().addAll(Arrays.asList(IP2));
+
+//        when(itemPedidoRepository.save(IP2)).thenReturn(IP2);
+//        assertThat(IP2).isNotNull();
+//        when(itemPedidoRepository.save(IP3)).thenReturn(IP3);
+//        assertThat(IP3).isNotNull();
+
+//        for (ItemPedido ip: PED1.getItens()) {
+//            ip.setCatalogo(SERV1);
+//            ip.setCatalogo(PROD2);
+//        }
+
+        Pedido sut = service.save(PED1);
+
+        when(repository.findOne(
+                QPedido.pedido.id.eq(sut.getId()))).thenReturn(Optional.of(sut));
+
+        Optional<Pedido> sutOpt = service.findById(String.valueOf(sut.getId()));
+
+        assertThat(sutOpt).isNotNull();
+        assertThat(sutOpt).isEqualTo(PED1);
+    }
+
 }

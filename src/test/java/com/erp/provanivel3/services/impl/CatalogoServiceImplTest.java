@@ -48,7 +48,7 @@ public class CatalogoServiceImplTest {
 
     //      executar individualmente
     @Test
-    public void acharCatalago_porId_retprnarUmCatalogodo() {
+    public void acharCatalago_porId_retprnarUmCatalogado() {
         when(repository.findOne(
                 QCatalogo.catalogo.id.eq(PROD1.getId())
         ))
@@ -60,7 +60,7 @@ public class CatalogoServiceImplTest {
     }
 
     @Test
-    public void acharCatalago_porIdInexitente_retprnarUmCatalogodo() {
+    public void acharCatalago_porIdInexitente_retprnarUmCatalogado() {
         when(repository.findOne(
                 QCatalogo.catalogo.id.eq(PROD1.getId())
         )).thenReturn(Optional.empty());
@@ -124,13 +124,13 @@ public class CatalogoServiceImplTest {
     }
 
     @Test
-    public void removeCatalog_existId_naoRetornaException() {
+    public void removeCatalogo_existId_naoRetornaException() {
         assertThatCode(() -> service.deleteById(String.valueOf(PROD1.getId())))
                 .doesNotThrowAnyException();
     }
 
     @Test
-    public void removeCatalog_existId_retornaException() {
+    public void removeCatalogo_existId_retornaException() {
         doThrow(new RuntimeException())
                 .when(repository).deleteById(UUID.fromString(IDFAKE));
         assertThatCode(() -> service.deleteById(String.valueOf(UUID.fromString(IDFAKE))))

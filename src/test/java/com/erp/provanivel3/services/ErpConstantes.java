@@ -19,8 +19,7 @@ import java.util.UUID;
 @Service
 public class ErpConstantes {
 
-    public ErpConstantes() {
-    }
+    private ErpConstantes() {}
 
     public static final String ID = "186e787-63fc-484d-ac4b-30eb488d4407";
     public static final String IDFAKE = "f286e787-63fc-484d-ac4b-30eb488d4407";
@@ -54,12 +53,12 @@ public class ErpConstantes {
 
     public static final List<Catalogo> CATALOGOS = Arrays.asList(PROD2, SERV1);
 
-    public static final Pedido PED1 = new Pedido(strToDate("30/09/2017 10:32"), StatusPedido.ABERTO);
-    public static final Pedido PED2 = new Pedido(strToDate("30/09/2017 10:32"), StatusPedido.ABERTO);
-    public static final Pedido PED3 = new Pedido(strToDate("30/09/2017 10:32"), StatusPedido.FECHADO);
-    public static final Pedido PED4 = new Pedido(strToDate("30/09/2017 10:32"), StatusPedido.FECHADO);
+    public static final Pedido PED1 = new Pedido(strToDate("30/11/2022 10:32"), StatusPedido.ABERTO);
+    public static final Pedido PED2 = new Pedido(strToDate("30/11/2022 10:32"), StatusPedido.ABERTO);
+    public static final Pedido PED3 = new Pedido(strToDate("30/11/2022 10:32"), StatusPedido.FECHADO);
+    public static final Pedido PED4 = new Pedido(strToDate("30/11/2022 10:32"), StatusPedido.FECHADO);
 
-    public static final List<Pedido> PEDIDOS = Arrays.asList(PED1);
+    public static final List<Pedido> PEDIDOS = Arrays.asList(PED1, PED2, PED3, PED4);
 
 
     public static final ItemPedido IP2 = new ItemPedido(PED1, PROD2, 0.05, 2, 78.59);

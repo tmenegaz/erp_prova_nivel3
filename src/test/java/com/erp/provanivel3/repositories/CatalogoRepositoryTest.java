@@ -1,20 +1,13 @@
 package com.erp.provanivel3.repositories;
 
 import com.erp.provanivel3.domain.Catalogo;
-import com.erp.provanivel3.domain.ItemPedido;
-import com.erp.provanivel3.domain.Pedido;
-import com.erp.provanivel3.domain.QCatalogo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
-import java.util.Arrays;
-import java.util.Optional;
-
-import static com.erp.provanivel3.services.ErpConstantes.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static com.erp.provanivel3.services.ErpConstantes.PROD3;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 public class CatalogoRepositoryTest {
