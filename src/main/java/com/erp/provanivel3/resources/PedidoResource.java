@@ -6,6 +6,8 @@ import com.erp.provanivel3.domain.Pedido;
 import com.erp.provanivel3.domain.enums.StatusPedido;
 import com.erp.provanivel3.services.impl.ItemPedidoServiceImpl;
 import com.erp.provanivel3.services.impl.PedidoServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Tag(name = "Pedidos")
 @RestController
 @RequestMapping( "/pedidos")
 public class PedidoResource {
@@ -32,6 +35,7 @@ public class PedidoResource {
         this.itemPedidoService = itemPedidoService;
     }
 
+    @Operation(summary = "Localiza um pedido por Id")
     @GetMapping(path = "/{id}")
     public ResponseEntity<Pedido> findById(
             @PathVariable(value = "id") String id
@@ -48,6 +52,7 @@ public class PedidoResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
+    @Operation(summary = "Filtra por páginas o status de um ou mais pedidos")
     @GetMapping(path = "/list")
     public ResponseEntity<Page<Pedido>> findPage(
             @RequestParam(value="status", defaultValue="instante") String status,

@@ -64,6 +64,8 @@ Isso será possível somente se o banco de dados existir e a aplicação tiver a
     ``url = jdbc:postgresql://localhost:5433/wb_erp_prova``
 
 ## Endereços para as funcinalidades
+
+Existe uma ``api-docs`` no endereço ``http://localhost:8081/v3/api-docs`` ou ``http://localhost:8081/swagger-ui/index.html`` que pode ser consultada para melhor testar
 ### catálogo
 
 criar no catálogo

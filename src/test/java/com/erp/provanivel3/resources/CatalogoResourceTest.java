@@ -43,4 +43,19 @@ public class CatalogoResourceTest {
                 .andExpect(redirectedUrl("http://localhost/produtosservicos/" + FROMDTO.getId()));
     }
 
+    @Test
+    public void criarCatalogo_ComDadosInvalidos_RetornaException() throws Exception {
+        when(service.fromDTO(PRODDTO)).thenReturn(FROMDTO);
+
+        when(service.save(FROMDTO)).thenReturn(FROMDTO);
+
+        mockMvc
+                .perform(
+                        post("/produtosservicos")
+                                .content(objectMapper.writeValueAsString(FROMDTO))
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(redirectedUrl("http://localhost/produtosservicos/" + FROMDTO.getId()));
+    }
+
 }

@@ -6,6 +6,8 @@ import com.erp.provanivel3.domain.enums.CondicaoProduto;
 import com.erp.provanivel3.domain.enums.TipoCatalogo;
 import com.erp.provanivel3.resources.utils.URL;
 import com.erp.provanivel3.services.impl.CatalogoServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Tag(name = "Catalogo")
 @RestController
 @RequestMapping( "/produtosservicos")
 public class CatalogoResource {
@@ -27,6 +30,7 @@ public class CatalogoResource {
         this.service = service;
     }
 
+    @Operation(summary = "Localiza um item do catalogo por Id")
     @GetMapping(path = "/{id}")
     public ResponseEntity<Catalogo> findById(
             @PathVariable(value = "id") String id
@@ -34,6 +38,7 @@ public class CatalogoResource {
         return ResponseEntity.ok().body(service.findById(id).get());
     }
 
+    @Operation(summary = "Filtra por páginas o nome, tipo e condicao de um ou mais itens do catalogo")
     @GetMapping(path = "/list")
     public ResponseEntity<Page<CatalogoDTO>> findPage(
             @RequestParam(value="nome", defaultValue="") String nome,

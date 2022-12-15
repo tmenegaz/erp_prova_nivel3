@@ -275,7 +275,7 @@ public class PedidoServiceImplTest {
     }
 
     @Test
-    public void consultraPedido_porIdInvazio_RetornaEmpty() {
+    public void consultraPedido_porIdInvalido_RetornaEmpty() {
 
         UUID id = UUID.randomUUID();
         when(repository.findOne(
