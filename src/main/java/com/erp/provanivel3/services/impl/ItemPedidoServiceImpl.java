@@ -14,6 +14,7 @@ import com.erp.provanivel3.services.ItemPedidoService;
 import com.erp.provanivel3.services.exceptions.DataIntegrityException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,10 +25,10 @@ import java.util.stream.Collectors;
 @Service
 public class ItemPedidoServiceImpl implements ItemPedidoService {
 
-    private ItemPedidoRepository repository;
-    private PedidoRepository pedidoRepository;
-    private PedidoServiceImpl service;
-    private CatalogoRepository catalogoRepository;
+    private final ItemPedidoRepository repository;
+    private final PedidoRepository pedidoRepository;
+    private final PedidoServiceImpl service;
+    private final CatalogoRepository catalogoRepository;
 
     public ItemPedidoServiceImpl(
             ItemPedidoRepository repository,
@@ -48,6 +49,7 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
 
 
     @Override
+    @Transactional
     public void deleteById(String id) {
         Optional<Catalogo> catalogo = catalogoRepository.findById(UUID.fromString(id));
         try {
@@ -126,6 +128,7 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
     }
 
     @Override
+    @Transactional
     public Pedido save(Pedido obj) {
         obj = pedidoRepository.save(obj);
         for (ItemPedido ip : obj.getItens()) {

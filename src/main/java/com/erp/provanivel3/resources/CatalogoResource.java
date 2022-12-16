@@ -9,6 +9,7 @@ import com.erp.provanivel3.services.impl.CatalogoServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 @RequestMapping( "/produtosservicos")
 public class CatalogoResource {
 
-    private CatalogoServiceImpl service;
+    private final CatalogoServiceImpl service;
 
     public CatalogoResource(CatalogoServiceImpl service) {
         this.service = service;

@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -24,9 +25,9 @@ import java.util.UUID;
 @Service
 public class PedidoServiceImpl implements PedidoService {
 
-    private PedidoRepository pedidoRepository;
-    private CatalogoRepository catalogRepository;
-    private ItemPedidoRepository itemPedidoRepository;
+    private final PedidoRepository pedidoRepository;
+    private final CatalogoRepository catalogRepository;
+    private final ItemPedidoRepository itemPedidoRepository;
 
     public PedidoServiceImpl(
             PedidoRepository pedidoRepository,
@@ -57,6 +58,7 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
+    @Transactional
     public void deleteById(String id) {
         findById(id);
         try {
@@ -82,6 +84,7 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
+    @Transactional
     public Pedido save(Pedido obj) {
         obj.setId(null);
         obj.setInstante(new Date());

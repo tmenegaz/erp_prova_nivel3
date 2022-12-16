@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
 @RequestMapping( "/pedidos")
 public class PedidoResource {
 
-    private PedidoServiceImpl pedidoService;
-    private ItemPedidoServiceImpl itemPedidoService;
+    private final PedidoServiceImpl pedidoService;
+    private final ItemPedidoServiceImpl itemPedidoService;
 
     public PedidoResource(
             PedidoServiceImpl pedidoService,

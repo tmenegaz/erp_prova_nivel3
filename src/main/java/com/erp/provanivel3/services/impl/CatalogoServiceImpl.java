@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +21,7 @@ import java.util.UUID;
 @Service
 public class CatalogoServiceImpl implements CatalogoService {
 
-    private CatalogoRepository repository;
+    private final CatalogoRepository repository;
 
     public CatalogoServiceImpl(CatalogoRepository repository) {
         this.repository = repository;
@@ -32,6 +33,7 @@ public class CatalogoServiceImpl implements CatalogoService {
     }
 
     @Override
+    @Transactional
     public void deleteById(String id) {
         findById(id);
         try {
@@ -55,6 +57,7 @@ public class CatalogoServiceImpl implements CatalogoService {
     }
 
     @Override
+    @Transactional
     public Catalogo save(Catalogo obj) {
         obj.setId(null);
         return repository.save(obj);
